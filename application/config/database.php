@@ -49,7 +49,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |				'ssl_ca'     - Path to the certificate authority file
 |				'ssl_capath' - Path to a directory containing trusted CA certificates in PEM format
 |				'ssl_cipher' - List of *allowed* ciphers to be used for the encryption, separated by colons (':')
-|				'ssl_verify' - TRUE/FALSE; Whether verify the server certificate or not ('mysqli' only)
+|				'ssl_verify' - TRUE/FALSE; Whether verify the server certificate or not
 |
 |	['compress'] Whether or not to use client compression (MySQL only)
 |	['stricton'] TRUE/FALSE - forces 'Strict Mode' connections
@@ -74,36 +74,12 @@ $active_group = 'default';
 $query_builder = TRUE;
 
 $db['default'] = array(
-	'dsn'      => 'pgsql:host=
-ec2-54-236-234-167.compute-1.amazonaws.com;port=5432;dbname=d5aivbejmunl1e;user=vyjzgduytfxgyb;password=c40fcadc5e31cfa91916dfbe98ccff658fd12a3ffa2f1dbdc3b4e96435e8a0f7',
-	'hostname' => 'ec2-54-236-234-167.compute-1.amazonaws.com', 
-	'username' => 'vyjzgduytfxgyb',
-	'password' => 'c40fcadc5e31cfa91916dfbe98ccff658fd12a3ffa2f1dbdc3b4e96435e8a0f7',
-	'database' => 'd5aivbejmunl1e',
-	'dbdriver' => 'pdo',
-	'dbprefix' => '',
-	'pconnect' => FALSE,
-	'db_debug' => (ENVIRONMENT !== 'production'),
-	'cache_on' => FALSE,
-	'cachedir' => '',
-	'char_set' => 'utf8',
-	'dbcollat' => 'utf8_general_ci',
-	'swap_pre' => '',
-	'encrypt' => FALSE,
-	'compress' => FALSE,
-	'stricton' => FALSE,
-	'failover' => array(),
-	'save_queries' => TRUE,
-	'options' => array(PDO::ATTR_TIMEOUT => 200)
-);
-
-$db['defaultX'] = array(
-	'dsn'      => 'pgsql:host=localhost;port=5432;dbname=db_umum;user=postgres;password=Pajak123',
+	'dsn'	=> '',
 	'hostname' => 'localhost',
-	'username' => 'postgres',
-	'password' => 'Pajak123',
-	'database' => 'db_umum',
-	'dbdriver' => 'pdo',
+	'username' => '',
+	'password' => '',
+	'database' => '',
+	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
 	'db_debug' => (ENVIRONMENT !== 'production'),
@@ -116,6 +92,5 @@ $db['defaultX'] = array(
 	'compress' => FALSE,
 	'stricton' => FALSE,
 	'failover' => array(),
-	'save_queries' => TRUE,
-	'options' => array(PDO::ATTR_TIMEOUT => 200)
+	'save_queries' => TRUE
 );

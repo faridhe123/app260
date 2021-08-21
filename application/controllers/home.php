@@ -19,8 +19,8 @@ class Home extends CI_Controller {
         $this->load->view('layouts/footer', $data);
 		
 	}
-	
-	public function logout(){
+	 
+	public function logout(){ 
 		$this->session->sess_destroy();
 		redirect('');
 	}

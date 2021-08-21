@@ -21,6 +21,6 @@ class Template {
                                
                                 $this->CI->load->view('layouts/'.$template, $this->template_data);
                 }
-                               
+                                
 }
 ?>

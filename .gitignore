@@ -1,6 +1,6 @@
 .DS_Store
 
-application/config/config.php
+application/config/*
 
 user_guide_src/build/*
 user_guide_src/cilexer/build/*

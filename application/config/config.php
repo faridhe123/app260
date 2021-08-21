@@ -23,7 +23,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = '';
+$config['base_url'] = 'https://nonpns260.herokuapp.com/' ;
+//$config['base_url'] = 'http://localhost/nonpns/' ;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,7 +36,7 @@ $config['base_url'] = '';
 | variable so that it is blank.
 |
 */
-$config['index_page'] = 'index.php';
+$config['index_page'] = '';
 
 /*
 |--------------------------------------------------------------------------
@@ -158,7 +159,7 @@ $config['composer_autoload'] = FALSE;
 | DO NOT CHANGE THIS UNLESS YOU FULLY UNDERSTAND THE REPERCUSSIONS!!
 |
 */
-$config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-';
+$config['permitted_uri_chars'] = 'a-z 0-9~%.:\_\=)+%\&,#(-';
 
 /*
 |--------------------------------------------------------------------------
@@ -489,6 +490,8 @@ $config['compress_output'] = FALSE;
 |
 */
 $config['time_reference'] = 'local';
+//$config['time_reference'] = 'Asia/Makassar';
+
 
 /*
 |--------------------------------------------------------------------------
@@ -521,3 +524,14 @@ $config['rewrite_short_tags'] = FALSE;
 | Array:		array('10.0.1.200', '192.168.5.0/24')
 */
 $config['proxy_ips'] = '';
+
+/*
+  |--------------------------------------------------------------------------
+  | HMVC Modular
+  |--------------------------------------------------------------------------
+  |
+  | Modules location
+ */
+//$config['modules_locations'] = array(
+//    APPPATH . 'modules/' => '../modules/',
+//);

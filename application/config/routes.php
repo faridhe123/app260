@@ -49,6 +49,30 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-$route['default_controller'] = 'welcome';
-$route['404_override'] = '';
-$route['translate_uri_dashes'] = FALSE;
+//$route['default_controller'] = 'dashboard';
+//if(isset($_SESSION['nama'])){
+	$route['default_controller'] = 'home';
+	$route['404_override'] = '';
+	$route['translate_uri_dashes'] = FALSE;
+	$route['wp_per_klu/list/(:any)/(:any)'] = 'wp_per_klu/klu/$1/$2';
+	$route['wp_per_klu_20/list/(:any)/(:any)'] = 'wp_per_klu_20/klu/$1/$2';
+	$route['wp_per_klu/list/(:any)'] = 'wp_per_klu/kat/$1';	
+	$route['wp_per_klu_20/list/(:any)'] = 'wp_per_klu_20/kat/$1';	
+	$route['pagu20/desa/(:any)'] = 'pagu20/desa2/$1';
+	$route['pagu20/desa/(:any)/(:any)'] = 'pagu20/desa3/$1/$2';
+	$route['pagu20/apbn/(:any)'] = 'pagu20/apbn2/$1';
+	
+	$route['pagu19/desa/(:any)'] = 'pagu19/desa2/$1';
+	$route['pagu19/desa/(:any)/(:any)'] = 'pagu19/desa3/$1/$2';
+	$route['pagu19/apbn/(:any)'] = 'pagu19/apbn2/$1';
+	
+	$route['pagu18/desa/(:any)'] = 'pagu18/desa2/$1';
+	$route['pagu18/desa/(:any)/(:any)'] = 'pagu18/desa3/$1/$2';
+	$route['pagu18/apbn/(:any)'] = 'pagu18/apbn2/$1';
+
+	$route['/(:any)'] = '/index.php/$1';
+	//}
+//else{
+	//$route['/(:any)'] = 'login';
+	//$route['default_controller'] = 'home';
+//}

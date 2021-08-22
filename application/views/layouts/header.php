@@ -24,11 +24,13 @@
           </button>
         </div>
         <div>
-          <a class="navbar-brand brand-logo" href="index.html">
-            <img src="<?php echo base_url()?>/assets/template/images/logo.svg" alt="logo" />
+          <a class="navbar-brand brand-logo" href="<?php echo base_url();?>">
+            <!-- <img src="<?php echo base_url()?>/assets/template/images/logo.svg" alt="logo" /> -->
+            NONASN<strong><b>260</b></strong>
           </a>
-          <a class="navbar-brand brand-logo-mini" href="index.html">
-            <img src="<?php echo base_url()?>/assets/template/images/logo-mini.svg" alt="logo" />
+          <a class="navbar-brand brand-logo-mini" href="<?php echo base_url();?>">
+            <!-- <img src="<?php echo base_url()?>/assets/template/images/logo-mini.svg" alt="logo" /> -->
+            <strong>NONASN260</strong>
           </a>
         </div>
       </div>

@@ -9,7 +9,7 @@
     <body>
         <div class="row">
             <div class="col-md-6">
-                <div class='card card-rounded mx-2'>
+                <div class='card card-rounded m-1'>
                     <div class="card-body">
                         <div class="d-sm-flex justify-content-between align-items-start">
                             <h4 class="card-title card-title-dash">PRESENSI PEGAWAI NON ASN</h4>
@@ -44,7 +44,7 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <div class='card card-rounded mx-2'>
+                <div class='card card-rounded m-1'>
                     <div class="card-body">
                         <h4 class="card-title"><i class='mdi mdi-information-outline'></i>&nbsp;&nbsp; Informasi</h4>
                         <blockquote class="blockquote">

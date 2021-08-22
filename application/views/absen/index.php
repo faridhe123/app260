@@ -15,16 +15,14 @@
                             <h4 class="card-title card-title-dash">PRESENSI PEGAWAI NON ASN</h4>
                         </div>
                         <form id='absen_masuk' method='POST' >            
-                            <div class='row'>
-                                <div class="row">
-                                    <label for="exampleInputUsername2" class="col-sm-3 col-form-label">LAT</label>
-                                    <div class="col-sm-3">
-                                        <input name='lat' id='lat' type="text" class="form-control" id="exampleInputUsername2" placeholder="Latitude">
-                                    </div><div class='col-6'></div>
-                                    <label for="exampleInputUsername2" class="col-sm-3 col-form-label">LONG</label>
-                                    <div class="col-sm-3">
-                                        <input name='long' id='long' type="text" class="form-control" id="exampleInputUsername2" placeholder="Longitude">
-                                    </div><div class='col-6'></div>
+                            <div class="row">
+                                <!-- <label for="exampleInputUsername2" class="col-sm-3 col-form-label">LAT</label> -->
+                                <div class="col-sm-6">
+                                    <input name='lat' id='lat' type="text" class="form-control" id="exampleInputUsername2" placeholder="Latitude">
+                                </div>
+                                <!-- <label for="exampleInputUsername2" class="col-sm-3 col-form-label">LONG</label> -->
+                                <div class="col-sm-6">
+                                    <input name='long' id='long' type="text" class="form-control" id="exampleInputUsername2" placeholder="Longitude">
                                 </div>
                             </div>
                         </form>
@@ -34,12 +32,12 @@
                             <strong class='col-12'>pada tanggal 22-08-2021</strong><br/>
                         </div>
                         <div class='my-3 row'>
-                            <strong class='col-2'>Waktu Masuk</strong>
-                            <strong class='col-4'>: 00:00:00 WITA</strong><br/>
+                            <strong class='col-4'>Waktu Masuk</strong>
+                            <strong class='col-8'>: 00:00:00 WITA</strong><br/>
                         </div>
                         <div class='my-3 row'>
-                            <strong class='col-2'>Waktu Pulang</strong>
-                            <strong class='col-4'>: 00:00:00 WITA</strong><br/>
+                            <strong class='col-4'>Waktu Pulang</strong>
+                            <strong class='col-8'>: 00:00:00 WITA</strong><br/>
                         </div>
                         <button id='btn_absen' class="btn btn-primary me-2 mb-3"><i class='mdi mdi-clock-outline'></i>&nbsp;&nbsp; ABSEN</button>
                     </div>

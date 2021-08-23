@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Model_login extends CI_model { 
+class Login_model extends CI_model { 
 	
 		function __construct(){
 		parent::__construct();

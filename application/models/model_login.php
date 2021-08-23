@@ -8,7 +8,7 @@ class Model_login extends CI_model {
 		$this->load->library('user_agent');
 	}
 
-	public function getlogin($u, $p,$redirect_to=null){
+	public function getlogin($u, $p,$redirect_to=null){ 
 		$count = 1;
 		$where = array('username'=> strtolower($u));
 		

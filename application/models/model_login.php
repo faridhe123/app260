@@ -19,7 +19,7 @@ class Model_login extends CI_model {
 		$this->db->where($where);
 		$query = $this->db->get('data.akun');
 		$hasil = $query->result_array();
-		$count = count($hasil); 
+		$count = count($hasil);
 		
 		if($count>0 ){ 
 			

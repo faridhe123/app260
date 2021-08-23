@@ -6,7 +6,7 @@ class Login extends CI_Controller {
 	function __construct(){
 		parent::__construct();
 		$this->load->library('user_agent');
-		$this->load->model('Model_login');
+		$this->load->model('Model_akses');
 	}
 
 	public function index($sts=null)
@@ -29,7 +29,7 @@ class Login extends CI_Controller {
 			$redirect_to = null;
 		}
 		
-		$this->model_login->getlogin($u,$p,$redirect_to);
+		$this->Model_akses->getlogin($u,$p,$redirect_to);
 		
 	}
 }

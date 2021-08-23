@@ -13,9 +13,7 @@ class Login extends CI_Controller {
 		if(isset($sts)){
 			$this->session->set_flashdata('sukses','Silahkan login kembali menggunakan password baru');
 		}
-		$this->load->view('LayoutsLTE/header');
 		$this->load->view('view_login');
-		$this->load->view('LayoutsLTE/footer');
 		
 	}
 	public function getlogin()

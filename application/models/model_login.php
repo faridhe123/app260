@@ -17,17 +17,15 @@ class Model_login extends CI_model {
 		}
 
 		$this->db->where($where);
-		$query = $this->db->get('wise.akun');
+		$query = $this->db->get('data.akun');
 		$hasil = $query->result_array();
 		$count = count($hasil);
 		
 		if($count>0 ){
 			
 			$sess = array ('username'		=>$u,
-			'id_akun'		=>$hasil[0]['id_akun'],
-			'nama'			=>$hasil[0]['nama'],
-			'nik'			=>$hasil[0]['nik'],
-			'telepon'		=>$hasil[0]['telepon'],
+			'id_akun'		=>$hasil[0]['id'],
+			'nama'			=>$hasil[0]['nama']
 		);
 		
 		if(isset($hasil[0]['admin'])){
@@ -49,7 +47,7 @@ class Model_login extends CI_model {
 		if (!isset($redirect_to)) 
 		redirect("home");
 		else
-		redirect(substr($redirect_to,13,strlen($redirect_to)));
+		redirect(substr($redirect_to,11,strlen($redirect_to)));
 		
 	}
 	else{

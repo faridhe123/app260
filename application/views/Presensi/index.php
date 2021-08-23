@@ -18,11 +18,11 @@
                             <div class="row">
                                 <!-- <label for="exampleInputUsername2" class="col-sm-3 col-form-label">LAT</label> -->
                                 <div class="col-sm-6">
-                                    <input name='lat' id='lat' type="text" class="form-control" id="exampleInputUsername2" placeholder="Latitude">
+                                    <input name='lat' id='lat' type="text" class="form-control" id="exampleInputUsername2" placeholder="Latitude" hidden>
                                 </div>
                                 <!-- <label for="exampleInputUsername2" class="col-sm-3 col-form-label">LONG</label> -->
                                 <div class="col-sm-6">
-                                    <input name='long' id='long' type="text" class="form-control" id="exampleInputUsername2" placeholder="Longitude">
+                                    <input name='long' id='long' type="text" class="form-control" id="exampleInputUsername2" placeholder="Longitude"  hidden>
                                 </div>
                             </div>
                         </form>
@@ -33,11 +33,13 @@
                         </div>
                         <div class='my-3 row'>
                             <strong class='col-4'>Waktu Masuk</strong>
-                            <strong class='col-8'>: 00:00:00 WITA</strong><br/>
+                            <strong class='col-4'>: 00:00:00</strong><br/>
+                            <strong class='col-4'> WITA</strong><br/>
                         </div>
                         <div class='my-3 row'>
                             <strong class='col-4'>Waktu Pulang</strong>
-                            <strong class='col-8'>: 00:00:00 WITA</strong><br/>
+                            <strong class='col-4'>: <?php echo date('H:i:s')?></strong><br/>
+                            <strong class='col-4'> WITA</strong><br/>
                         </div>
                         <button id='btn_absen' class="btn btn-primary me-2 mb-3"><i class='mdi mdi-clock-outline'></i>&nbsp;&nbsp; ABSEN</button>
                     </div>

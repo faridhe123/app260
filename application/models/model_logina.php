@@ -21,7 +21,7 @@ class Model_login extends CI_model {
 		$hasil = $query->result_array();
 		$count = count($hasil);
 		
-		if($count>0 ){
+		if($count>0 ){ 
 			
 			$sess = array ('username'		=>$u,
 			'id_akun'		=>$hasil[0]['id'],

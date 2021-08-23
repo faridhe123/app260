@@ -70,6 +70,30 @@
     <script>
         const getLocation = document.getElementById("btn_absen");
 
+        //This function takes in latitude and longitude of two locations
+        // and returns the distance between them as the crow flies (in meters)
+        function calcCrow(coord1, coord2)
+        {
+            // var R = 6.371; // km
+            var R = 6371000;
+            var dLat = toRad(coord2.lat-coord1.lat);
+            var dLon = toRad(coord2.lng-coord1.lng);
+            var lat1 = toRad(coord1.lat);
+            var lat2 = toRad(coord2.lat);
+
+            var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2); 
+            var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+            var d = R * c;
+            return d;
+        }
+
+        // Converts numeric degrees to radians
+        function toRad(Value)
+        {
+            return Value * Math.PI / 180;
+        }
+
         getLocation.addEventListener('click', evt=>{
             if('geolocation' in navigator){
                 // apakah ada GPS?
@@ -83,47 +107,30 @@
 
                     form = $('#absen_masuk').serialize();
 
-                    Kantor = {"lat": -5.1327699,"lng": 119.4395278};
-                    Pegawai = {"lat": latitude,"lng": longitude};
-                    //This function takes in latitude and longitude of two locations
-                    // and returns the distance between them as the crow flies (in meters)
-                    function calcCrow(Kantor, Pegawai)
-                    {
-                        // var R = 6.371; // km
-                        var R = 6371000;
-                        var dLat = toRad(Pegawai.lat-Kantor.lat);
-                        var dLon = toRad(Pegawai.lng-Kantor.lng);
-                        var lat1 = toRad(Kantor.lat);
-                        var lat2 = toRad(Pegawai.lat);
+                    coordKantor = {"lat": -5.1327699,"lng": 119.4395278};
+                    coordPegawai = {"lat": latitude,"lng": longitude};
+                    
 
-                        var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-                            Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2); 
-                        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
-                        var d = R * c;
-                        return d;
+                    if(calcCrow(coordKantor, coordPegawai) > 200) { // jarak jauh dari kantor
+                        status = "Harap melakukan absen dalam wilayah kantor";
+                        alert( "Jarak anda "+calcCrow(coordKantor, coordPegawai).toFixed(2)+ " m kantor. "+status);
                     }
+                    else { // masuk area kantor
+                        // coba AJAX
+                        $.ajax({
+                            type: "POST",
+                            url: "<?php  echo base_url('Absen/submit'); ?>",
+                            data: form,
 
-                    // Converts numeric degrees to radians
-                    function toRad(Value)
-                    {
-                        return Value * Math.PI / 180;
+                            success: function(data){
+                                alert(data); //Unterminated String literal fixed
+                            }
+                        });
                     }
-
-                    if(calcCrow(Kantor, Pegawai) > 200) status = "Harap melakukan absen dalam wilayah kantor";
-                    else status = "Silahkan melakukan absen";
 
                     alert( "Jarak anda "+calcCrow(Kantor, Pegawai).toFixed(2)+ " m kantor. "+status);
 
-                    // coba AJAX
-                    // $.ajax({
-                    //     type: "POST",
-                    //     url: "<?php  echo base_url('Test_ajax/test'); ?>",
-                    //     data: form,
-
-                    //     success: function(data){
-                    //         alert(data); //Unterminated String literal fixed
-                    //     }
-                    // });
+                    
        
                     console.log(form)  
                 },error=>{                      // jika error

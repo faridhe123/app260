@@ -18,6 +18,19 @@ class Absen extends CI_Controller {
         $this->load->view('layouts/footer', $data);
 		
 	}
+	public function submit(){
+
+		if(! $this->input->is_ajax_request()) {
+			redirect('404');
+		}
+		
+		$long = $_POST["long"];
+		$lat = $_POST["lat"];
+		
+		if(true)echo $long ." - ".$lat;
+		else echo "gagal";
+
+	}
 	
 	public function logout(){
 		$this->session->sess_destroy();

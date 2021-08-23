@@ -19,14 +19,7 @@ class Test_ajax extends CI_Controller {
 		
 	}
 	
-	public function test(){
-		$long = $_POST["long"];
-		$lat = $_POST["lat"];
-		
-		if(true)echo $long ." - ".$lat;
-		else echo "gagal";
 
-	}
 
 	public function action(){
 		// include_once('config.php');

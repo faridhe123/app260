@@ -109,7 +109,10 @@
                         return Value * Math.PI / 180;
                     }
 
-                    alert( "Jarak anda "+calcCrow(Kantor, Pegawai).toFixed(2)+ " m kantor");
+                    if(calcCrow(Kantor, Pegawai) > 200) status = "Harap melakukan absen dalam wilayah kantor";
+                    else status = "Silahkan melakukan absen";
+
+                    alert( "Jarak anda "+calcCrow(Kantor, Pegawai).toFixed(2)+ " m kantor. "+status);
 
                     // coba AJAX
                     // $.ajax({

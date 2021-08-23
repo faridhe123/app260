@@ -83,16 +83,44 @@
 
                     form = $('#absen_masuk').serialize();
 
-                    // coba AJAX
-                    $.ajax({
-                        type: "POST",
-                        url: "<?php  echo base_url('Test_ajax/test'); ?>",
-                        data: form,
+                    Kantor = {"lat": -5.1327699,"lng": 119.4395278};
+                    Pegawai = {"lat": latitude,"lng": longitude};
+                    //This function takes in latitude and longitude of two locations
+                    // and returns the distance between them as the crow flies (in meters)
+                    function calcCrow(Kantor, Pegawai)
+                    {
+                        // var R = 6.371; // km
+                        var R = 6371000;
+                        var dLat = toRad(Pegawai.lat-Kantor.lat);
+                        var dLon = toRad(Pegawai.lng-Kantor.lng);
+                        var lat1 = toRad(Kantor.lat);
+                        var lat2 = toRad(Pegawai.lat);
 
-                        success: function(data){
-                            alert(data); //Unterminated String literal fixed
-                        }
-                    });
+                        var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                            Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2); 
+                        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+                        var d = R * c;
+                        return d;
+                    }
+
+                    // Converts numeric degrees to radians
+                    function toRad(Value)
+                    {
+                        return Value * Math.PI / 180;
+                    }
+
+                    alert( "Jarak anda "+calcCrow(Kantor, Pegawai).toFixed(2)+ " m kantor");
+
+                    // coba AJAX
+                    // $.ajax({
+                    //     type: "POST",
+                    //     url: "<?php  echo base_url('Test_ajax/test'); ?>",
+                    //     data: form,
+
+                    //     success: function(data){
+                    //         alert(data); //Unterminated String literal fixed
+                    //     }
+                    // });
        
                     console.log(form)  
                 },error=>{                      // jika error

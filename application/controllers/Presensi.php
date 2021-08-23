@@ -14,7 +14,7 @@ class Presensi extends MY_Login {
 		header("Access-Control-Allow-Origin: *");
         $data = array();
         $this->load->view('layouts/header', $data);
-        $this->load->view('presensi/index', $data);
+        $this->load->view('Presensi/index', $data); 
         $this->load->view('layouts/footer', $data);
 		
 	}

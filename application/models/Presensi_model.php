@@ -5,55 +5,74 @@ class Presensi_model extends CI_model {
 	
 		function __construct(){
 		parent::__construct();
-		$this->load->library('user_agent');
 	}
 
-	public function updatePassword($post){
-			
-		$data = array(
-			'password' => md5($post['password'])
-	);
-
-	$id_akun = $this->session->userdata('id_akun');
-	$this->db->where('id_akun', $id_akun);
-	
-	$update = $this->db->update('app_umum.akun_3', $data);
-
-	return $update;
-	}
-
-	function listUser() {
-
+	function getPresensi($username) {
 		$sql="
-			--list user untuk admin
-			select * from app_umum.akun_3 a
-			order by nama_unit_es3 ,nama_unit_es4 ,id_akun
+			select min(date_record),max(date_record)
+			from presensi.log_presensi 
+			where username = '$username'
+				and date_record::date = current_date::date
 			";
 		$query = $this->db->query($sql);
 		$data = $query->result_array();
-        return $data;
+		
+		if($data[0]['min'] == $data[0]['max']) $data[0]['max'] == null;
+
+		return $data[0];
+		
 	}
 
-	function bukaAkses($post) {
+	function getMaxID($data) {
+
+		$sql="
+			-- max ID
+			select max(id)
+			from presensi.log_presensi a
+			where username = '817933289'
+			";
+		$query = $this->db->query($sql);
+		$data = $query->result_array();
 		
-		
-		$this->db->set('akses','1');
-		$this->db->where('id_akun', $post['id_akun']);
-		
-		$buka = $this->db->update('app_umum.akun_3', $data);
-	
-		return $buka;
+		return $data[0]['max'];
 
 	}
 
-	function tutupAkses($post) {
-		
-		$this->db->set('akses','null',false);
-		$this->db->where('id_akun', $post['id_akun']);
-		$tutup = $this->db->update('app_umum.akun_3');
-	
-		return $tutup;
+	function getJenis($username) {
+		$sql="
+			select min(date_record),max(date_record)
+			from presensi.log_presensi 
+			where username = '$username'
+				and date_record::date = current_date::date
+			";
+		$query = $this->db->query($sql);
+		$data = $query->result_array();
+		$data['user'] = $username;
 
+		// $json = json_encode($data);
+		// return $json;
+		
+		if($data[0]['min'] !== null) return 'PULANG';
+		else return 'MASUK';
+	}
+
+	public function submitPresensi($data,$jenis){
+		
+		$input = array();
+		$input = array(
+			'id' => $data['nextID'],
+			'username' => $data['username'],
+			'long' => $data['long'],
+			'lat' => $data['lat'],
+			'jenis_presensi' => $jenis,
+			'date_record' => date('Y-m-d H:i:s')
+		);
+		// $id_akun = $this->session->userdata('id_akun');
+		// $this->db->where('id_akun', $id_akun);
+		
+		$insert = $this->db->insert('presensi.log_presensi', $input);
+		
+		return $insert;
 	}
 
 }

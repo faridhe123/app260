@@ -1,5 +1,5 @@
 <?php
-date_default_timezone_set('Asia/Makassar');
+
 
 ?>
 <!DOCTYPE html>
@@ -21,6 +21,7 @@ date_default_timezone_set('Asia/Makassar');
                         <form id='absen_masuk' method='POST' >            
                             <div class="row">
                                 <!-- <label for="exampleInputUsername2" class="col-sm-3 col-form-label">LAT</label> -->
+                                <input name='username' id='username' type="text"  placeholder="Latitude" value='<?php echo $this->session->userdata('username') ?>' hidden>
                                 <div class="col-sm-6">
                                     <input name='lat' id='lat' type="text" class="form-control" id="exampleInputUsername2" placeholder="Latitude" hidden>
                                 </div>
@@ -37,13 +38,21 @@ date_default_timezone_set('Asia/Makassar');
                         </div>
                         <div class='my-3 row'>
                             <strong class='col-4'>Waktu Masuk</strong>
-                            <strong class='col-4'>: 00:00:00</strong><br/>
+                            <?php if(isset($hasil['min'])){?>
+                            <strong class='col-4'>: <?php echo date('H:i:s',strtotime($hasil['min']))?></strong><br/>
                             <strong class='col-4'> WITA</strong><br/>
+                            <?php }else { ?>
+                            <span class='col-8' style='color:darkgrey'> Belum melakukan presensi</span>
+                            <?php }?>
                         </div>
                         <div class='my-3 row'>
                             <strong class='col-4'>Waktu Pulang</strong>
-                            <strong class='col-4'>: <?php echo date('H:i:s')?></strong><br/>
+                            <?php if(isset($hasil['max'])){?>
+                            <strong class='col-4'>: <?php echo date('H:i:s',strtotime($hasil['max']))?></strong><br/>
                             <strong class='col-4'> WITA</strong><br/>
+                            <?php }else { ?>
+                            <span class='col-8' style='color:darkgrey'>Belum melakukan presensi</span>
+                            <?php }?>
                         </div>
                         <button id='btn_absen' class="btn btn-primary me-2 mb-3"><i class='mdi mdi-clock-outline'></i>&nbsp;&nbsp; ABSEN</button>
                     </div>
@@ -117,7 +126,7 @@ date_default_timezone_set('Asia/Makassar');
                     coordPegawai = {"lat": latitude,"lng": longitude};
                     
 
-                    if(calcCrow(coordKantor, coordPegawai) > 200) { // jarak jauh dari kantor
+                    if(calcCrow(coordKantor, coordPegawai) > 200 && false) { // jarak jauh dari kantor
                         status = "Harap melakukan absen dalam wilayah kantor";
                         alert( "Jarak anda "+calcCrow(coordKantor, coordPegawai).toFixed(2)+ " m kantor. "+status);
                     }
@@ -125,7 +134,7 @@ date_default_timezone_set('Asia/Makassar');
                         // coba AJAX
                         $.ajax({
                             type: "POST",
-                            url: "<?php  echo base_url('Absen/submit'); ?>",
+                            url: "<?php  echo base_url('Presensi/submit'); ?>",
                             data: form,
 
                             success: function(data){
@@ -134,7 +143,7 @@ date_default_timezone_set('Asia/Makassar');
                         });
                     }
 
-                    alert( "Jarak anda "+calcCrow(Kantor, Pegawai).toFixed(2)+ " m kantor. "+status);
+                    //alert( "Jarak anda "+calcCrow(Kantor, Pegawai).toFixed(2)+ " m kantor. "+status);
 
                     
        

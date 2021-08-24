@@ -18,6 +18,7 @@ date_default_timezone_set('Asia/Makassar');
                         <div class="d-sm-flex justify-content-between align-items-start">
                             <h4 class="card-title card-title-dash">PRESENSI PEGAWAI NON ASN</h4>
                         </div>
+                        <hr/>
                         <form id='absen_masuk' method='POST' >            
                             <div class="row">
                                 <!-- <label for="exampleInputUsername2" class="col-sm-3 col-form-label">LAT</label> -->
@@ -33,8 +34,12 @@ date_default_timezone_set('Asia/Makassar');
                         </form>
                         <div class='my-3 row'>
                             <strong class='col-12'>Data Presensi Anda Hari ini</strong><br/>
-                            <strong class='col-12'>NIP 817933289 / 13571598</strong><br/>
-                            <strong class='col-12'>pada tanggal 22-08-2021</strong><br/>
+                            <strong class='col-4'>Nama</strong><br/>
+                                <strong class='col-8'>: <?php echo $this->session->userdata('nama')?></strong><br/>
+                            <strong class='col-4'>Nomor User</strong><br/>
+                                <strong class='col-8'>: <?php echo $this->session->userdata('username')?></strong><br/>
+                            <strong class='col-4'>tanggal</strong><br/>
+                            <strong class='col-8'>: <?php echo date('d-m-Y')?></strong><br/>
                         </div>
                         <div class='my-3 row'>
                             <strong class='col-4'>Masuk</strong>
@@ -42,7 +47,7 @@ date_default_timezone_set('Asia/Makassar');
                             <strong class='col-4'><?php echo date('H:i:s',strtotime($hasil['min']))?></strong><br/>
                             <strong class='col-3'> WITA</strong><br/>
                             <?php }else { ?>
-                            <span class='col-8' style='color:darkgrey'> Belum melakukan presensi</span>
+                            <span class='col-8' style='color:darkgrey'>: Belum melakukan presensi</span>
                             <?php }?>
                         </div>
                         <div class='my-3 row'>
@@ -51,7 +56,7 @@ date_default_timezone_set('Asia/Makassar');
                             <strong class='col-4'><?php echo date('H:i:s',strtotime($hasil['max']))?></strong><br/>
                             <strong class='col-3'> WITA</strong><br/>
                             <?php }else { ?>
-                            <span class='col-8' style='color:darkgrey'>Belum melakukan presensi</span>
+                            <span class='col-8' style='color:darkgrey'>: Belum melakukan presensi</span>
                             <?php }?>
                         </div>
                         <button id='btn_absen' class="btn btn-primary me-2 mb-3"><i class='mdi mdi-clock-outline'></i>&nbsp;&nbsp; ABSEN</button>

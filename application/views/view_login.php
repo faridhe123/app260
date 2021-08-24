@@ -5,7 +5,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Star Admin2 </title>
+  <title>App260 | Login</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="<?php echo base_url() ?>/assets/template/vendors/feather/feather.css">
   <link rel="stylesheet" href="<?php echo base_url() ?>/assets/template/vendors/mdi/css/materialdesignicons.min.css">
@@ -30,8 +30,8 @@
           <div class="col-lg-4 mx-auto">
             <div class="auth-form-light text-left py-5 px-4 px-sm-5">
               <div class="brand-logo">
-                <!-- <img src="<?php echo base_url() ?>/assets/template/images/logo.svg" alt="logo"> -->
-				<span style='font-size:30px' >App<b>260</b></span>
+                <img src="<?php echo base_url() ?>/assets/template/images/logo.png" alt="logo">
+				<!-- <span style='font-size:30px' >App<b>260</b></span> -->
               </div>
               <h4>Selamat datang di App260 !</h4>
               <h6 class="fw-light">Silahkan Login untuk melanjutkan</h6>

@@ -39,7 +39,7 @@ class Presensi_model extends CI_model {
 	}
 
 	public function submitPresensi($data,$jenis){
-		
+		date_default_timezone_set('Asia/Makassar');
 		$input = array();
 		$input = array(
 			'id' => $data['nextID'],

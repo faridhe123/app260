@@ -37,19 +37,19 @@ date_default_timezone_set('Asia/Makassar');
                             <strong class='col-12'>pada tanggal 22-08-2021</strong><br/>
                         </div>
                         <div class='my-3 row'>
-                            <strong class='col-4'>Waktu Masuk</strong>
+                            <strong class='col-4'>Masuk</strong>
                             <?php if(isset($hasil['min'])){?>
-                            <strong class='col-4'>: <?php echo date('H:i:s',strtotime($hasil['min']))?></strong><br/>
-                            <strong class='col-4'> WITA</strong><br/>
+                            <strong class='col-4'><?php echo date('H:i:s',strtotime($hasil['min']))?></strong><br/>
+                            <strong class='col-3'> WITA</strong><br/>
                             <?php }else { ?>
                             <span class='col-8' style='color:darkgrey'> Belum melakukan presensi</span>
                             <?php }?>
                         </div>
                         <div class='my-3 row'>
-                            <strong class='col-4'>Waktu Pulang</strong>
+                            <strong class='col-4'>Pulang</strong>
                             <?php if($hasil['max'] !== $hasil['min']){?>
-                            <strong class='col-4'>: <?php echo date('H:i:s',strtotime($hasil['max']))?></strong><br/>
-                            <strong class='col-4'> WITA</strong><br/>
+                            <strong class='col-4'><?php echo date('H:i:s',strtotime($hasil['max']))?></strong><br/>
+                            <strong class='col-3'> WITA</strong><br/>
                             <?php }else { ?>
                             <span class='col-8' style='color:darkgrey'>Belum melakukan presensi</span>
                             <?php }?>

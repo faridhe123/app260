@@ -70,11 +70,7 @@ date_default_timezone_set('Asia/Makassar');
                         <h4 class="card-title"><i class='mdi mdi-information-outline'></i>&nbsp;&nbsp; Informasi</h4>
                         <blockquote class="blockquote">
                             <ul>
-                                <li>Form wajib diisi sekali sehari</li>
-                                <li>Pegawai tidak dapat mengisi kegiatan logbook apabila belum menyelesaikan form assessment ini</li>
-                                <li>Isian akan disimpan digunakan sebagai alat bantu DJP dalam memonitoring kondisi kesehatan pegawai</li>
                                 <li>Data pribadi akan tersimpan otomatis setelah diisi, dan dapat di update setiap hari</li>
-                                <li>Pegawai dapat melakukan penilaian mandiri lebih dari satu kali setiap harinya</li>
                                 <li>Pastikan mengklik 'Allow' saat dikonfirmasi browser untuk mengakses lokasi device</li>
                                 <li>Apabila setelah klik 'Allow' koordinat masih belum muncul, disarankan untuk menggunakan browser lain atau device lain</li>
                                 <li>Penilaian mandiri ini disusun berdasarkan protokol penanganan bencana COVID-19 Kementerian Keuangan</li>

@@ -9,7 +9,7 @@ class Presensi_model extends CI_model {
 
 	function getPresensi($username) {
 		$sql="
-			select min(date_record),max(date_record)
+			select min(date_record::timestamp),max(date_record::timestamp)
 			from presensi.log_presensi 
 			where username = '$username'
 				and date_record::date = current_date::date
@@ -36,24 +36,6 @@ class Presensi_model extends CI_model {
 		
 		return $data[0]['max'];
 
-	}
-
-	function getJenis($username) {
-		$sql="
-			select min(date_record),max(date_record)
-			from presensi.log_presensi 
-			where username = '$username'
-				and date_record::date = current_date::date
-			";
-		$query = $this->db->query($sql);
-		$data = $query->result_array();
-		$data['user'] = $username;
-
-		// $json = json_encode($data);
-		// return $json;
-		
-		if($data[0]['min'] !== null) return 'PULANG';
-		else return 'MASUK';
 	}
 
 	public function submitPresensi($data,$jenis){

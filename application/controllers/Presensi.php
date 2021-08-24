@@ -24,6 +24,19 @@ class Presensi extends MY_Login {
         $this->load->view('layouts/footer');
 		
 	}
+
+	public function sukses(){
+		header("Access-Control-Allow-Origin: *");
+        $data = array();
+
+		$user = $this->session->userdata('username');
+
+        $this->load->view('layouts/header');
+        $this->load->view('Presensi/sukses', $data); 
+        $this->load->view('layouts/footer');
+		
+	}
+
 	public function submit(){
 	
 		if(! $this->input->is_ajax_request()) {

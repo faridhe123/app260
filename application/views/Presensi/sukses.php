@@ -14,7 +14,7 @@
                 <div class="card bg-primary card-rounded">
                     <div class="card-body pb-0">
                         <h4 class="card-title card-title-dash text-white mb-4">Berhasil</h4>
-                        <hr/>
+                        <hr style='border-top:3px solid white'/>
                         <div class="row">
                             <div class="col-sm-12 mb-4">
                                 <h3 class="text-white upgrade-info mb-0">
@@ -31,9 +31,9 @@
     </body>
 
     <script>
-         setTimeout(function(){
-            window.location.href = '<?php echo base_url('Presensi/')?>';
-         }, 5000);
+        //  setTimeout(function(){
+        //     window.location.href = '<?php echo base_url('Presensi/')?>';
+        //  }, 5000);
       </script>
 </html>
 

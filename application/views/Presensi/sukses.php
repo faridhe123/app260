@@ -31,9 +31,9 @@
     </body>
 
     <script>
-        //  setTimeout(function(){
-        //     window.location.href = '<?php echo base_url('Presensi/')?>';
-        //  }, 5000);
+         setTimeout(function(){
+            window.location.href = '<?php echo base_url('Presensi/')?>';
+         }, 5000);
       </script>
 </html>
 

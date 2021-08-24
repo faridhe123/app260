@@ -33,7 +33,7 @@ date_default_timezone_set('Asia/Makassar');
                             </div>
                         </form>
                         <div class='my-3 row'>
-                            <strong class='col-12'>Data Presensi Anda Hari ini</strong><br/>
+                            <span class='col-12'><u>Data presensi anda hari ini</u></span><br/>
                             <strong class='col-4'>Nama</strong><br/>
                                 <strong class='col-8'>: <?php echo $this->session->userdata('nama')?></strong><br/>
                             <strong class='col-4'>Nomor User</strong><br/>
@@ -41,19 +41,20 @@ date_default_timezone_set('Asia/Makassar');
                             <strong class='col-4'>tanggal</strong><br/>
                             <strong class='col-8'>: <?php echo date('d-m-Y')?></strong><br/>
                         </div>
-                        <div class='my-3 row'>
+                        <hr/>
+                        <div class='mt-3 row'>
                             <strong class='col-4'>Masuk</strong>
                             <?php if(isset($hasil['min'])){?>
-                            <strong class='col-4'><?php echo date('H:i:s',strtotime($hasil['min']))?></strong><br/>
+                            <strong class='col-4'>: <?php echo date('H:i:s',strtotime($hasil['min']))?></strong><br/>
                             <strong class='col-3'> WITA</strong><br/>
                             <?php }else { ?>
                             <span class='col-8' style='color:darkgrey'>: Belum melakukan presensi</span>
                             <?php }?>
                         </div>
-                        <div class='my-3 row'>
+                        <div class='mb-3 row'>
                             <strong class='col-4'>Pulang</strong>
                             <?php if($hasil['max'] !== $hasil['min']){?>
-                            <strong class='col-4'><?php echo date('H:i:s',strtotime($hasil['max']))?></strong><br/>
+                            <strong class='col-4'>: <?php echo date('H:i:s',strtotime($hasil['max']))?></strong><br/>
                             <strong class='col-3'> WITA</strong><br/>
                             <?php }else { ?>
                             <span class='col-8' style='color:darkgrey'>: Belum melakukan presensi</span>

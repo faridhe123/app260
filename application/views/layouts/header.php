@@ -25,7 +25,7 @@
         </div>
         <div>
           <a class="navbar-brand brand-logo" href="<?php echo base_url();?>">
-            <img src="<?php echo base_url()?>/assets/template/images/logo.png" alt="logo" />
+            <img style='height: 50px;' src="<?php echo base_url()?>/assets/template/images/logo.png" alt="logo" />
             <!-- NONASN<strong><b>260</b></strong> -->
           </a>
           <a class="navbar-brand brand-logo-mini" href="<?php echo base_url();?>">

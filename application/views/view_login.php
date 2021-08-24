@@ -30,7 +30,7 @@
           <div class="col-lg-4 mx-auto">
             <div class="auth-form-light text-left py-5 px-4 px-sm-5">
               <div class="brand-logo">
-                <img src="<?php echo base_url() ?>/assets/template/images/logo.png" alt="logo">
+                <img style='width:130px' src="<?php echo base_url() ?>/assets/template/images/logo.png" alt="logo">
 				<!-- <span style='font-size:30px' >App<b>260</b></span> -->
               </div>
               <h4>Selamat datang di App260 !</h4>

@@ -33,7 +33,7 @@
     <script>
          setTimeout(function(){
             window.location.href = '<?php echo base_url('Presensi/')?>';
-         }, 5000);
+         }, 3000);
       </script>
 </html>
 

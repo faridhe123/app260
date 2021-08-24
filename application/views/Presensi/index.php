@@ -36,7 +36,7 @@ date_default_timezone_set('Asia/Makassar');
                             <span class='col-12'><u>Data presensi anda hari ini</u></span><br/>
                             <strong class='col-4'>Nama</strong><br/>
                                 <strong class='col-8'>: <?php echo $this->session->userdata('nama')?></strong><br/>
-                            <strong class='col-4'>Nomor User</strong><br/>
+                            <strong class='col-4'>ID</strong><br/>
                                 <strong class='col-8'>: <?php echo $this->session->userdata('username')?></strong><br/>
                             <strong class='col-4'>tanggal</strong><br/>
                             <strong class='col-8'>: <?php echo date('d-m-Y')?></strong><br/>
@@ -48,7 +48,7 @@ date_default_timezone_set('Asia/Makassar');
                             <strong class='col-4'>: <?php echo date('H:i:s',strtotime($hasil['min']))?></strong><br/>
                             <strong class='col-3'> WITA</strong><br/>
                             <?php }else { ?>
-                            <span class='col-8' style='color:darkgrey'>: Belum melakukan presensi</span>
+                            <span class='col-8' style='color:darkgrey'>: Belum presensi</span>
                             <?php }?>
                         </div>
                         <div class='mb-3 row'>
@@ -57,7 +57,7 @@ date_default_timezone_set('Asia/Makassar');
                             <strong class='col-4'>: <?php echo date('H:i:s',strtotime($hasil['max']))?></strong><br/>
                             <strong class='col-3'> WITA</strong><br/>
                             <?php }else { ?>
-                            <span class='col-8' style='color:darkgrey'>: Belum melakukan presensi</span>
+                            <span class='col-8' style='color:darkgrey'>: Belum presensi</span>
                             <?php }?>
                         </div>
                         <button id='btn_absen' class="btn btn-primary me-2 mb-3"><i class='mdi mdi-clock-outline'></i>&nbsp;&nbsp; ABSEN</button>

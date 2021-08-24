@@ -47,7 +47,7 @@ date_default_timezone_set('Asia/Makassar');
                         </div>
                         <div class='my-3 row'>
                             <strong class='col-4'>Waktu Pulang</strong>
-                            <?php if(isset($hasil['max'])){?>
+                            <?php if($hasil['max'] !== $hasil['min']){?>
                             <strong class='col-4'>: <?php echo date('H:i:s',strtotime($hasil['max']))?></strong><br/>
                             <strong class='col-4'> WITA</strong><br/>
                             <?php }else { ?>

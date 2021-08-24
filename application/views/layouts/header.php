@@ -5,13 +5,13 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Star Admin2 </title>
+  <title>App260 </title>
 
 <!-- ||||||||||||||||||||||||| -->
     <?php include('dependencies_h.php');?>
 <!-- ||||||||||||||||||||||||| -->
 
-  <link rel="shortcut icon" href="<?php echo base_url()?>/assets/template/images/favicon.png" />
+  <link rel="shortcut icon" href="<?php echo base_url()?>/assets/template/images/favicon2.png" />
 </head>
 <body>
   <div class="container-scroller"> 
@@ -25,12 +25,12 @@
         </div>
         <div>
           <a class="navbar-brand brand-logo" href="<?php echo base_url();?>">
-            <!-- <img src="<?php echo base_url()?>/assets/template/images/logo.svg" alt="logo" /> -->
-            NONASN<strong><b>260</b></strong>
+            <img src="<?php echo base_url()?>/assets/template/images/logo.png" alt="logo" />
+            <!-- NONASN<strong><b>260</b></strong> -->
           </a>
           <a class="navbar-brand brand-logo-mini" href="<?php echo base_url();?>">
-            <!-- <img src="<?php echo base_url()?>/assets/template/images/logo-mini.svg" alt="logo" /> -->
-            <strong>NONASN260</strong>
+            <img src="<?php echo base_url()?>/assets/template/images/logo-mini.png" alt="logo" />
+            <!-- <strong>NONASN260</strong> -->
           </a>
         </div>
       </div>

@@ -8,7 +8,7 @@ date_default_timezone_set('Asia/Makassar');
         <meta/>
         <meta/>
         <meta/>
-        <title>Presensi</title>
+        <title>Geolocation</title>
     </head>
     <body>
         <div class="row">

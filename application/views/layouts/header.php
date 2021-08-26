@@ -71,7 +71,7 @@
     <!-- partial -->
     <div class="container-fluid page-body-wrapper">
       <!-- partial:partials/_settings-panel.html -->
-      <!-- <div class="theme-setting-wrapper">
+      <div class="theme-setting-wrapper">
         <div id="settings-trigger"><i class="ti-settings"></i></div>
         <div id="theme-settings" class="settings-panel">
           <i class="settings-close ti-close"></i>
@@ -88,7 +88,7 @@
             <div class="tiles default"></div>
           </div>
         </div>
-      </div> -->
+      </div>
       <div id="right-sidebar" class="settings-panel">
         <i class="settings-close ti-close"></i>
         <ul class="nav nav-tabs border-top" id="setting-panel" role="tablist">
@@ -245,7 +245,7 @@
         <ul class="nav">
           <li class="nav-item">
             <a class="nav-link" href="home">
-              <i class="mdi mdi-home menu-icon"></i>
+              <i class="mdi mdi-home-outline menu-icon"></i>
               <span class="menu-title">Home</span>
             </a>
           </li>
@@ -253,6 +253,18 @@
             <a class="nav-link" href="presensi">
               <i class="mdi mdi-clock-outline menu-icon"></i>
               <span class="menu-title">Presensi Non ASN</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="Izin_keluar">
+              <i class="mdi mdi-check-circle-outline menu-icon"></i>
+              <span class="menu-title">Izin Keluar Kantor</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="Izin_keluar/atasan">
+              <i class="mdi mdi-check-circle-outline menu-icon"></i>
+              <span class="menu-title">Izin Keluar Kantor<br/>(Menu Atasan)</span>
             </a>
           </li>
           <!-- <li class="nav-item nav-category">Daftar Modul</li>

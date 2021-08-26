@@ -17,15 +17,23 @@ class Login_model extends CI_model {
 		}
 
 		$this->db->where($where);
-		$query = $this->db->get('data.akun');
+		$query = $this->db->get('data.v_join_asn_nonasn');
+		
 		$hasil = $query->result_array();
 		$count = count($hasil);
 		
 		if($count>0 ){ 
 			
-			$sess = array ('username'		=>$u,
-			'id_akun'		=>$hasil[0]['id'],
-			'nama'			=>$hasil[0]['nama']
+			$sess = array (
+				'username'		=>$u,
+				'id'			=>$hasil[0]['id'],
+				'nip18'			=>$hasil[0]['nip18'],
+				'nip9'			=>$hasil[0]['nip9'],
+				'nama'			=>$hasil[0]['nama'],
+				'jabatan'		=>$hasil[0]['jabatan'],
+				'unit'			=>$hasil[0]['unit'],
+				'nama_unit_es4'	=>$hasil[0]['nama_unit_es4'],
+				'nm_es3_short'	=>$hasil[0]['nm_es3_short'],
 		);
 		
 		if(isset($hasil[0]['admin'])){
@@ -47,7 +55,7 @@ class Login_model extends CI_model {
 		if (!isset($redirect_to)) 
 		redirect("home");
 		else
-		redirect(substr($redirect_to,11,strlen($redirect_to)));
+		redirect(base_url('').substr($redirect_to,8,strlen($redirect_to)));
 		
 	}
 	else{

@@ -34,7 +34,6 @@ class Presensi extends MY_Login {
         $this->load->view('layouts/header');
         $this->load->view('Presensi/sukses', $data); 
         $this->load->view('layouts/footer');
-		
 	}
 
 	public function submit(){
@@ -61,8 +60,4 @@ class Presensi extends MY_Login {
 		else echo "gagal";
 	}
 	
-	public function logout(){
-		$this->session->sess_destroy();
-		redirect('');
-	}
 }

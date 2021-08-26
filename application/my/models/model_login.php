@@ -49,7 +49,7 @@ class Model_login extends CI_model {
 		if (!isset($redirect_to)) 
 		redirect("home");
 		else
-		redirect(substr($redirect_to,13,strlen($redirect_to)));
+		redirect(base_url('').substr($redirect_to,10,strlen($redirect_to)));
 		
 	}
 	else{

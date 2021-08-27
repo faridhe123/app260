@@ -23,13 +23,12 @@ class Presensi_model extends CI_model {
 		
 	}
 
-	function getMaxID($data) {
+	function getMaxID() {
 
 		$sql="
 			-- max ID
 			select max(id)
 			from presensi.log_presensi a
-			where username = '817933289'
 			";
 		$query = $this->db->query($sql);
 		$data = $query->result_array();

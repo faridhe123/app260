@@ -213,6 +213,7 @@
       });
       document.getElementById('performance-line-legend-dark').innerHTML = salesTopDark.generateLegend();
     }
+
     if ($("#datepicker-popup").length) {
       $('#datepicker-popup').datepicker({
         enableOnReadonly: true,
@@ -220,6 +221,16 @@
       });
       $("#datepicker-popup").datepicker("setDate", "0");
     }
+    // MDF START
+    // if ($("#datepicker-popupa1").length) {
+    //   $('#datepicker-popupa1').datepicker({
+    //     enableOnReadonly: true,
+    //     todayHighlight: true,
+    //   });
+    //   $("#datepicker-popupa1").datepicker("setDate", "0");
+    // }
+    // MDF END
+
     if ($("#status-summary").length) {
       var statusSummaryChartCanvas = document.getElementById("status-summary").getContext('2d');;
       var statusData = {

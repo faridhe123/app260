@@ -35,18 +35,23 @@ $fmt->setPattern('cccc, d MMMM yyyy');
                                 <th>Jam</th>
                                 <th>Keperluan</th>
                                 <th>status</th>
+                                <th>Catatan Atasan</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php foreach($hasil as $row){?>
                                 <tr>
                                     <td><?php echo $fmt->format(new \DateTime($row['tanggal'])); ?></td>
-                                    <td><?php echo date('H:i',strtotime('2021-01-01 '.$row['dari'])) . ' s.d. ' . date('H:i',strtotime('2021-01-01 '.$row['sampai'])); ?></td>
+                                    <td><?php echo date('H:i',strtotime('2021-01-01 '.$row['dari'])) . ' s.d. ' . date('H:i',strtotime('2021-01-01 '.$row['sampai'])); ?> WITA</td>
                                     <td><?php echo $row['keperluan'];?></td>
                                     <td>
-                                        <?php if($row['status']){?><label class="badge badge-success">Disetujui</label><?php } ?>
-                                        <?php if(){?><label class="badge badge-success">Disetujui</label><?php } ?>
-                                    </td>
+                                        <?php if($row['status'] == 'Dikonfirmasi'){?><label class="badge badge-success">Dikonfirmasi</label><?php } 
+                                         else {?>
+                                         <label class="badge badge-warning">Pending</label>
+                                         <button class='editIzin' data-toggle='modal' data-edit='<?php echo json_encode($row); ?>'><i class="mdi mdi-edit"></i>Edit</utton>
+                                         <?php } ?>
+                                        </td>
+                                    <td><?php echo $row['catatan']??' - ';?></td>
                                 </tr>
                             <?php }?>
                             </tbody>
@@ -59,7 +64,7 @@ $fmt->setPattern('cccc, d MMMM yyyy');
     <!-- modal -->
 
     <div id="modal-add" class="modal modal-top fade calendar-modal">
-        <div class="modal-dialog modal-md modal-dialog-centered">
+        <div class="modal-dialog modal-md">
             <div class="modal-content">
                 <form id="add-event" action="<?php echo base_url("Izin_keluar/submitIzin/"); ?>" method="POST">
                     <div class='modal-header'>
@@ -98,7 +103,52 @@ $fmt->setPattern('cccc, d MMMM yyyy');
                     </div>
                     <div class="modal-footer">
                         <button id='submitButton' type="submit" class="btn btn-primary" >Submit</button>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                        <!-- <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button> -->
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-edit" class="modal modal-top fade calendar-modal">
+        <div class="modal-dialog modal-md modal-dialog">
+            <div class="modal-content">
+                <form id="add-event" action="<?php echo base_url("Izin_keluar/editIzin/"); ?>" method="POST">
+                    <div class='modal-header'>
+                        <h4 class="text-blue h4 mb-10">Edit Izin Keluar</h4>
+
+                    </div>
+                    <div class="modal-body">
+                        <input id='id' type="text" class="form-control" name='id' hidden>
+                        <div class="form-group">
+                            <label for="tanggal-keluar">Tanggal : </label>
+                            <div id="datepicker-popupE" class="input-group date datepicker navbar-date-picker">
+                                <span class="input-group-addon input-group-prepend border-right">
+                                    <span class="icon-calendar input-group-text calendar-icon"></span>
+                                </span>
+                                <input id='e_tanggal' type="text" class="form-control" name='tanggal'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-row ml-2">
+                                <div class="col-md-6">
+                                        <label>Dari</label>
+                                        <input  id='e_dari' class="form-control simpleExample row" type="text" name='dari' value='09:00'>
+                                </div>
+                                <div class="col-md-6">
+                                        <label>Sampai</label>
+                                        <input id='e_sampai' class="form-control simpleExample row" type="text" name='sampai' value='12:00'>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleTextarea1">Keperluan : </label>
+                            <textarea class="form-control" id="e_keperluan" rows="" name='keperluan' style='height:100px'></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button id='submitButton' type="submit" class="btn btn-primary" >Simpan</button>
+                        <!-- <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button> -->
                     </div>
                 </form>
             </div>
@@ -108,6 +158,7 @@ $fmt->setPattern('cccc, d MMMM yyyy');
     <script>
       
       $( document ).ready(function(){
+          
         $(".simpleExample").timepicker({
           hourHeaderText: "Jam",
           minHeaderText: "Menit",
@@ -115,7 +166,11 @@ $fmt->setPattern('cccc, d MMMM yyyy');
           cancelButtonText: "Tutup",
           selectSize: 5
         });
+
+        
 	  });
+
+     
 
       function calcCrow(coord1, coord2)
         {
@@ -170,5 +225,23 @@ $fmt->setPattern('cccc, d MMMM yyyy');
             jQuery('#i_dari').val(moment().format('HH:mm'));
             jQuery('#i_sampai').val(moment().add(1, 'hours').format('HH:mm'));
         });
+
+        $(".editIzin").on('click',function(){
+            $('#modal-edit').modal('show');
+
+            $('#datepicker-popupE').datepicker({
+                enableOnReadonly: true,
+                todayHighlight: true,
+            });
+            $("#datepicker-popupE").datepicker("setDate", "0");
+
+            $('#id').val($(this).data('edit').id);
+            $('#e_tanggal').val($(this).data('edit').tanggal);
+            $('#e_dari').val($(this).data('edit').dari);
+            $('#e_sampai').val($(this).data('edit').sampai);
+            $('#e_keperluan').val($(this).data('edit').keperluan);
+            // alert($(this).data('edit').keperluan);
+        });
+
 
     </script>

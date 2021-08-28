@@ -11,6 +11,8 @@ class Izin_keluar_model extends CI_model {
 		
 		$query = $this->db->get_where('izin_keluar.log_izin', array('username' => $username));
 		$data = $query->result_array();
+
+		// echo "<pre>",print_r($data);die();
 		return $data;
 		
 	}
@@ -35,6 +37,13 @@ class Izin_keluar_model extends CI_model {
 		$insert = $this->db->insert('izin_keluar.log_izin', $data);
 		
 		return $insert;
+	}
+
+	public function update_izin($data){
+		$this->db->where('id', $data['id']);
+		$update = $this->db->update('izin_keluar.log_izin', $data);
+		
+		return $update;
 	}
 
 }

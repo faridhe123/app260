@@ -244,25 +244,25 @@
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
           <li class="nav-item">
-            <a class="nav-link" href="home">
+            <a class="nav-link" href="<?php echo base_url()?>home">
               <i class="mdi mdi-home-outline menu-icon"></i>
               <span class="menu-title">Home</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="presensi">
+            <a class="nav-link" href="<?php echo base_url()?>presensi">
               <i class="mdi mdi-clock-outline menu-icon"></i>
               <span class="menu-title">Presensi Non ASN</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="Izin_keluar">
+            <a class="nav-link" href="<?php echo base_url()?>Izin_keluar">
               <i class="mdi mdi-check-circle-outline menu-icon"></i>
               <span class="menu-title">Izin Keluar Kantor</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="Izin_keluar/atasan">
+            <a class="nav-link" href="<?php echo base_url()?>Izin_keluar/atasan">
               <i class="mdi mdi-check-circle-outline menu-icon"></i>
               <span class="menu-title">Izin Keluar Kantor<br/>(Menu Atasan)</span>
             </a>

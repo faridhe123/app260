@@ -44,4 +44,16 @@ class Izin_keluar extends MY_Login {
 		// else echo "gagal";
 		redirect(base_url('Izin_keluar/'));
 	}
+
+	public function editIzin(){
+	
+		// if(! $this->input->is_ajax_request()) {
+		// 	redirect('404');
+		// }		
+		$data = $_POST;
+		
+		$this->Izin_keluar_model->update_izin($data);
+		
+		redirect(base_url('Izin_keluar/'));
+	}
 }

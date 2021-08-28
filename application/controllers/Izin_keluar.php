@@ -24,6 +24,19 @@ class Izin_keluar extends MY_Login {
 		
 	}
 
+	public function atasan(){
+		header("Access-Control-Allow-Origin: *");
+        $data = array();
+
+		$id_es4 = $this->session->userdata('id_es4');
+		$data['hasil'] = $this->Izin_keluar_model->getIzinBawahan($id_es4);
+
+        $this->load->view('layouts/header');
+        $this->load->view('Izin_keluar/atasan', $data); 
+        $this->load->view('layouts/footer');
+		
+	}
+
 	public function submitIzin(){
 	
 		// if(! $this->input->is_ajax_request()) {

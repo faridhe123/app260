@@ -17,6 +17,16 @@ class Izin_keluar_model extends CI_model {
 		
 	}
 
+	function getIzinBawahan($id_es4) {
+		
+		$query = $this->db->get_where('izin_keluar.v_get_izin_bawahan', array('id_es4' => $id_es4));
+		$data = $query->result_array();
+
+		// echo "<pre>",print_r($data);die();
+		return $data;
+		
+	}
+
 	function getMaxID() {
 
 		$sql="

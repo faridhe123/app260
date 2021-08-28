@@ -33,6 +33,7 @@ class Login_model extends CI_model {
 				'jabatan'		=>$hasil[0]['jabatan'],
 				'unit'			=>$hasil[0]['unit'],
 				'nama_unit_es4'	=>$hasil[0]['nama_unit_es4'],
+				'id_es4'		=>$hasil[0]['id_es4'],
 				'nm_es3_short'	=>$hasil[0]['nm_es3_short'],
 		);
 		

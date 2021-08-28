@@ -25,6 +25,9 @@ class Izin_keluar extends MY_Login {
 	}
 
 	public function atasan(){
+		if(substr($this->session->userdata('jabatan'),0,6) !== 'Kepala' ) {
+			redirect('404');
+		}		
 		header("Access-Control-Allow-Origin: *");
         $data = array();
 
@@ -68,5 +71,20 @@ class Izin_keluar extends MY_Login {
 		$this->Izin_keluar_model->update_izin($data);
 		
 		redirect(base_url('Izin_keluar/'));
+	}
+
+	public function konfimasiIzin(){
+		if(substr($this->session->userdata('jabatan'),0,6) !== 'Kepala' ) {
+			redirect('404');
+		}		
+
+		$data = $_POST;
+		$data['username_atasan'] = $this->session->userdata('username');
+		$data['date_konfirmasi'] = date('Y-m-d H:i:s');
+		$data['status'] = 'Dikonfirmasi';
+		// echo "<pre>",print_r($data);die();
+		$this->Izin_keluar_model->update_izin($data);
+		
+		redirect(base_url('Izin_keluar/atasan'));
 	}
 }

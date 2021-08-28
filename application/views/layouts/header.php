@@ -52,8 +52,9 @@
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
               <div class="dropdown-header text-center">
                 <img class="img-md rounded-circle" src="<?php echo base_url()?>/assets/template/images/faces/face8.jpg" alt="Profile image">
-                <p class="mb-1 mt-3 font-weight-semibold">Allen Moreno</p>
-                <p class="fw-light text-muted mb-0">allenmoreno@gmail.com</p>
+                <p class="fw-light text-muted mb-0"><?php echo $this->session->userdata('username')?></p>
+                <p class="mb-1 mt-3 font-weight-semibold"><?php echo $this->session->userdata('jabatan')?></p>
+                <p class="fw-light text-muted mb-0"><?php echo $this->session->userdata('unit')?></p>
               </div>
               <!-- <a class="dropdown-item"><i class="dropdown-item-icon mdi mdi-account-outline text-primary me-2"></i> My Profile <span class="badge badge-pill badge-danger">1</span></a>
               <a class="dropdown-item"><i class="dropdown-item-icon mdi mdi-message-text-outline text-primary me-2"></i> Messages</a>
@@ -261,12 +262,14 @@
               <span class="menu-title">Izin Keluar Kantor</span>
             </a>
           </li>
+          <?php if(substr($this->session->userdata('jabatan'),0,6) == 'Kepala' ) {?>
           <li class="nav-item">
             <a class="nav-link" href="<?php echo base_url()?>Izin_keluar/atasan">
-              <i class="mdi mdi-check-circle-outline menu-icon"></i>
+              <i class="mdi mdi-tie menu-icon"></i>
               <span class="menu-title">Izin Keluar Kantor<br/>(Menu Atasan)</span>
             </a>
           </li>
+          <?php } ?>
           <!-- <li class="nav-item nav-category">Daftar Modul</li>
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">

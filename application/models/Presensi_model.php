@@ -23,6 +23,13 @@ class Presensi_model extends CI_model {
 		
 	}
 
+	function getDBCurrentDate() {
+		$sql="select current_timestamp ";
+		
+		return $this->db->query($sql)->result_array()[0]['current_timestamp'];
+		
+	}
+
 	function getMaxID() {
 
 		$sql="

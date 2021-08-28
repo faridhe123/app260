@@ -15,6 +15,7 @@ class Presensi extends MY_Login {
 		header("Access-Control-Allow-Origin: *");
         $data = array();
 
+		$data['DBCurrentDate'] = $this->Presensi_model->getDBCurrentDate();
 		$user = $this->session->userdata('username');
 		$data['hasil'] = $this->Presensi_model->getPresensi($user);
 

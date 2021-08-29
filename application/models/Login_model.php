@@ -33,6 +33,7 @@ class Login_model extends CI_model {
 				'jabatan'		=>$hasil[0]['jabatan'],
 				'unit'			=>$hasil[0]['unit'],
 				'nama_unit_es4'	=>$hasil[0]['nama_unit_es4'],
+				'id_es3'		=>$hasil[0]['id_es3'],
 				'id_es4'		=>$hasil[0]['id_es4'],
 				'nm_es3_short'	=>$hasil[0]['nm_es3_short'],
 		);
@@ -50,6 +51,8 @@ class Login_model extends CI_model {
 		if($u !== $p){ // || $u == 'admin260' || $sess['role'] == 'admin'
 			$sess = array_merge(array('ganti_pass'=> 1),$sess);
 		}
+
+		// echo "<pre>",var_dump($sess);die();
 		
 		$this->session->set_userdata($sess);
 		// print_r($_SESSION);die();

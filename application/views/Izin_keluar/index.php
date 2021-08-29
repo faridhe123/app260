@@ -51,7 +51,7 @@ $fmt->setPattern('cccc, d MMMM yyyy');
                                          <button class='editIzin' data-toggle='modal' data-edit='<?php echo json_encode($row); ?>'><i class="mdi mdi-edit"></i>Edit</utton>
                                          <?php } ?>
                                         </td>
-                                    <td><?php echo $row['catatan']??' - ';?></td>
+                                    <td><?php echo $row['catatan_atasan']??' - ';?></td>
                                 </tr>
                             <?php }?>
                             </tbody>

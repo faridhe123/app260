@@ -27,6 +27,26 @@ class Izin_keluar_model extends CI_model {
 		
 	}
 
+	function getIzinEs4($id_es3) {
+		
+		$query = $this->db->get_where('izin_keluar.v_get_izin_es4', array('id_es3' => $id_es3));
+		$data = $query->result_array();
+
+		// echo "<pre>",print_r($data);die();
+		return $data;
+		
+	}
+
+	function getIzinKeKakanwil() {
+		
+		$query = $this->db->get_where('izin_keluar.v_get_izin_ke_kakanwil');
+		$data = $query->result_array();
+
+		// echo "<pre>",print_r($data);die();
+		return $data;
+		
+	}
+
 	function getMaxID() {
 
 		$sql="

@@ -32,7 +32,14 @@ class Izin_keluar extends MY_Login {
         $data = array();
 
 		$id_es4 = $this->session->userdata('id_es4');
-		$data['hasil'] = $this->Izin_keluar_model->getIzinBawahan($id_es4);
+		$id_es3 = $this->session->userdata('id_es3');
+		if($id_es4 !== null ) {
+			$data['hasil'] = $this->Izin_keluar_model->getIzinBawahan($id_es4);
+		}elseif($id_es4 == null && $id_es3 !== null){
+			$data['hasil'] = $this->Izin_keluar_model->getIzinEs4($id_es3);
+		}else{
+			$data['hasil'] = $this->Izin_keluar_model->getIzinKeKakanwil($id_es3);
+		}
 
         $this->load->view('layouts/header');
         $this->load->view('Izin_keluar/atasan', $data); 

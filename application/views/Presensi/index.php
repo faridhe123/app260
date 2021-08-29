@@ -17,7 +17,7 @@ date_default_timezone_set('Asia/Makassar');
                     <div class="card-body">
                         <div class="d-sm-flex justify-content-between align-items-start">
                             <h4 class="card-title card-title-dash">PRESENSI PEGAWAI NON ASN</h4>
-                            <h4 class="card-title card-title-dash"><?php echo $DBCurrentDate;?></h4>
+                            <!-- <h4 class="card-title card-title-dash"><?php echo $DBCurrentDate;?></h4> -->
                         </div>
                         <hr/>
                         <form id='absen_masuk' method='POST' >            

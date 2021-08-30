@@ -255,7 +255,7 @@
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
           <li class="nav-item">
-            <a class="nav-link" href="<?php echo base_url()?>home">
+            <a class="nav-link" href="<?php echo site_url()?>home">
               <i class="mdi mdi-home-outline menu-icon"></i>
               <span class="menu-title">Home</span>
             </a>
@@ -264,7 +264,7 @@
             || $this->session->userdata('role') == 'admin'
             || $this->session->userdata('jenis_akun') == 'NON ASN'){?>
           <li class="nav-item">
-            <a class="nav-link" href="<?php echo base_url()?>presensi">
+            <a class="nav-link" href="<?php echo site_url()?>presensi">
               <i class="mdi mdi-clock-outline menu-icon"></i>
               <span class="menu-title">Presensi Non ASN</span>
             </a>
@@ -272,14 +272,14 @@
           <?php } ?>
           <?php if($this->session->userdata('role') == 'admin_turt' || $this->session->userdata('role') == 'admin'){?>
           <li class="nav-item">
-            <a class="nav-link" href="<?php echo base_url()?>presensi/admin">
+            <a class="nav-link" href="<?php echo site_url()?>presensi/admin">
               <i class="mdi mdi-clock-outline menu-icon"></i>
               <span class="menu-title text-danger">Presensi Non ASN<BR/>(Admin)</span>
             </a>
           </li>
           <?php } ?>
           <li class="nav-item">
-            <a class="nav-link" href="<?php echo base_url()?>Izin_keluar">
+            <a class="nav-link" href="<?php echo site_url()?>Izin_keluar">
               <i class="mdi mdi-check-circle-outline menu-icon"></i>
               <span class="menu-title">Izin Keluar Kantor</span>
             </a>
@@ -288,7 +288,7 @@
             || $this->session->userdata('role') == 'admin'
             ) {?>
           <li class="nav-item">
-            <a class="nav-link" href="<?php echo base_url()?>Izin_keluar/atasan">
+            <a class="nav-link" href="<?php echo site_url()?>Izin_keluar/atasan">
               <i class="mdi mdi-tie menu-icon" style='color:#145de1'></i>
               <span class="menu-title" style='color:#145de1'>Izin Keluar Kantor<br/>(Menu Atasan)</span>
             </a>

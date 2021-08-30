@@ -1,3 +1,6 @@
+
+ <!-- MDF -->
+
 <div class="row flex-grow">
   <div class="col-12 grid-margin stretch-card">
     <div class="card card-rounded">
@@ -6,7 +9,35 @@
           <div class="col-lg-12">
             <div class="d-flex justify-content-between align-items-center mb-3">
               <div>
-                <h4 class="card-title card-title-dash">Top Performer</h4>
+                <h4 class="card-title card-title-dash">Rekap Presensi</h4>
+              </div>
+              <div>
+                <div class="row">
+                  <div class="form-group row col-md-8 align-items-center">
+                      <label for="exampleInputUsername2" class="col-sm-2 col-form-label">Tanggal</label>
+                      <div class="col-sm-5">
+                        <div id="datepicker-popup" class="input-group date datepicker navbar-date-picker">
+                            <span class="input-group-addon input-group-prepend border-right">
+                                <span class="icon-calendar input-group-text calendar-icon"></span>
+                            </span>
+                            <input id='i_tanggal' type="text" class="form-control" name='tanggal'>
+                        </div>
+                      </div>
+                      <div class="col-sm-5">
+                        <div id="datepicker-popupA" class="input-group date datepicker navbar-date-picker">
+                            <span class="input-group-addon input-group-prepend border-right">
+                                <span class="icon-calendar input-group-text calendar-icon"></span>
+                            </span>
+                            <input id='i_tanggal' type="text" class="form-control" name='tanggal'>
+                        </div>
+                      </div>
+                  </div>
+                  <div class="col-md-3">
+                    <button id='button-izin' class="btn btn-primary btn-md text-white mb-0 me-0" type="button">
+                        <i class="mdi mdi-download"></i> <b>Unduh File</b>
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="mt-3">
@@ -77,3 +108,17 @@
     </div>
   </div>
 </div>
+
+<script>
+  
+  $( document ).ready(function(){
+      
+    $('#datepicker-popupA').datepicker({
+        enableOnReadonly: true,
+        todayHighlight: true,
+    });
+    $("#datepicker-popupA").datepicker("setDate", "0");
+  });
+
+ 
+</script>

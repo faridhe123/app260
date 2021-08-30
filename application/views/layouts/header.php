@@ -270,7 +270,10 @@
             </a>
           </li>
           <?php } ?>
-          <?php if($this->session->userdata('role') == 'admin_turt' || $this->session->userdata('role') == 'admin'){?>
+
+      <!-- START HERE - MENU ASN -->
+<?php if($this->session->userdata('jenis_akun') !== 'NON ASN'){
+     if($this->session->userdata('role') == 'admin_turt' || $this->session->userdata('role') == 'admin'){?>
           <li class="nav-item">
             <a class="nav-link" href="<?php echo site_url()?>presensi/admin">
               <i class="mdi mdi-clock-outline menu-icon"></i>
@@ -293,7 +296,8 @@
               <span class="menu-title" style='color:#145de1'>Izin Keluar Kantor<br/>(Menu Atasan)</span>
             </a>
           </li>
-          <?php } ?>
+          <?php } 
+          }?>
           <!-- <li class="nav-item nav-category">Daftar Modul</li>
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">

@@ -24,7 +24,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 $config['base_url'] = 'https://app260.herokuapp.com/';
-// $config['base_url'] = 'http ://localhost/app260.com/';
+// $config['base_url'] = 'http://localhost/app260.com/';
 
 /*
 |--------------------------------------------------------------------------
@@ -36,7 +36,8 @@ $config['base_url'] = 'https://app260.herokuapp.com/';
 | variable so that it is blank.
 |
 */
-$config['index_page'] = 'index.php';
+// $config['index_page'] = 'index.php';
+$config['index_page'] = '';
 
 /*
 |--------------------------------------------------------------------------

@@ -23,7 +23,7 @@ class Presensi_model extends CI_model {
 		
 	}
 
-	function getPresensiAdmin($date1,$date2) {
+	function getPresensiAdmin($date1=null,$date2=null) {
 		$sql="
 			select min(date_record::timestamp),max(date_record::timestamp)
 			from presensi.log_presensi 

@@ -58,10 +58,13 @@
                 <!-- <img class="img-md rounded-circle" src="<?php echo base_url()?>/assets/template/images/faces/face8.jpg" alt="Profile image"> -->
                 <img
                   class="img-md rounded-circle"
+                  width='80px'
                   src="https://account.kemenkeu.go.id/manage/Uploads/Thumbnails/<?php echo str_replace(' ','',$_SESSION['nip18'])?>.jpg" alt="">
-                <p class="mt-1 fw-light text-danger mb-0"><?php echo $this->session->userdata('username')?></p>
+                <p class="mt-1 fw-light text-danger mb-0">
+                  <?php echo $this->session->userdata('username') . ($this->session->userdata('role')=='user'?'':' ('.$this->session->userdata('role').')')?>
+                </p>
                 <p class="my-1 font-weight-semibold"><?php echo $this->session->userdata('jabatan')?></p>
-                <p class="fw-light text-muted mb-0"><?php echo $this->session->userdata('unit')?></p>
+                <p class="font-weight-semibold mb-0"><?php echo $this->session->userdata('unit')?></p>
               </div>
               <!-- <a class="dropdown-item"><i class="dropdown-item-icon mdi mdi-account-outline text-primary me-2"></i> My Profile <span class="badge badge-pill badge-danger">1</span></a>
               <a class="dropdown-item"><i class="dropdown-item-icon mdi mdi-message-text-outline text-primary me-2"></i> Messages</a>
@@ -257,23 +260,37 @@
               <span class="menu-title">Home</span>
             </a>
           </li>
+          <?php if($this->session->userdata('role') == 'admin_turt' 
+            || $this->session->userdata('role') == 'admin'
+            || $this->session->userdata('jenis_akun') == 'NON ASN'){?>
           <li class="nav-item">
             <a class="nav-link" href="<?php echo base_url()?>presensi">
               <i class="mdi mdi-clock-outline menu-icon"></i>
               <span class="menu-title">Presensi Non ASN</span>
             </a>
           </li>
+          <?php } ?>
+          <?php if($this->session->userdata('role') == 'admin_turt' || $this->session->userdata('role') == 'admin'){?>
+          <li class="nav-item">
+            <a class="nav-link" href="<?php echo base_url()?>presensi/admin">
+              <i class="mdi mdi-clock-outline menu-icon"></i>
+              <span class="menu-title text-danger">Presensi Non ASN<BR/>(Admin)</span>
+            </a>
+          </li>
+          <?php } ?>
           <li class="nav-item">
             <a class="nav-link" href="<?php echo base_url()?>Izin_keluar">
               <i class="mdi mdi-check-circle-outline menu-icon"></i>
               <span class="menu-title">Izin Keluar Kantor</span>
             </a>
           </li>
-          <?php if(substr($this->session->userdata('jabatan'),0,6) == 'Kepala' ) {?>
+          <?php if(substr($this->session->userdata('jabatan'),0,6) == 'Kepala'
+            || $this->session->userdata('role') == 'admin'
+            ) {?>
           <li class="nav-item">
             <a class="nav-link" href="<?php echo base_url()?>Izin_keluar/atasan">
-              <i class="mdi mdi-tie menu-icon"></i>
-              <span class="menu-title">Izin Keluar Kantor<br/>(Menu Atasan)</span>
+              <i class="mdi mdi-tie menu-icon" style='color:#145de1'></i>
+              <span class="menu-title" style='color:#145de1'>Izin Keluar Kantor<br/>(Menu Atasan)</span>
             </a>
           </li>
           <?php } ?>

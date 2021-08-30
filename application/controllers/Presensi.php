@@ -26,6 +26,21 @@ class Presensi extends MY_Login {
 		
 	}
 
+	public function admin(){
+		if($this->session->userdata('role') !== 'admin_turt' && $this->session->userdata('role') !== 'admin') redirect('404');
+
+		header("Access-Control-Allow-Origin: *");
+        $data = array();
+
+		$data['hasil'] = $this->Presensi_model->getPresensiAdmin();
+
+
+        $this->load->view('layouts/header');
+        $this->load->view('Presensi/admin', $data); 
+        $this->load->view('layouts/footer');
+		
+	}
+
 	public function sukses(){
 		header("Access-Control-Allow-Origin: *");
         $data = array();

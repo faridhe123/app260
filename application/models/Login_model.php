@@ -31,6 +31,7 @@ class Login_model extends CI_model {
 				'nip9'			=>$hasil[0]['nip9'],
 				'nama'			=>$hasil[0]['nama'],
 				'jabatan'		=>$hasil[0]['jabatan'],
+				'jenis_akun'		=>$hasil[0]['jenis_akun'],
 				'unit'			=>$hasil[0]['unit'],
 				'nama_unit_es4'	=>$hasil[0]['nama_unit_es4'],
 				'id_es3'		=>$hasil[0]['id_es3'],
@@ -38,20 +39,23 @@ class Login_model extends CI_model {
 				'nm_es3_short'	=>$hasil[0]['nm_es3_short'],
 		);
 		
-		if(isset($hasil[0]['admin'])){
+		if($hasil[0]['admin'] == '0'){  
 			$sess = array_merge(array('role'=> 'admin'),$sess);
+		}elseif($hasil[0]['admin'] == '1'){
+			$sess = array_merge(array('role'=> 'admin_turt'),$sess);
+		}elseif($hasil[0]['admin'] == '2'){
+			$sess = array_merge(array('role'=> 'admin_keu'),$sess);
 		}else{
 			$sess = array_merge(array('role'=> 'user'),$sess);
 		}
-		
+
 		if(isset($hasil[0]['akses']) ){ //|| $u == 'admin260' || $sess['role'] == 'admin'
 			$sess = array_merge(array('akses'=> 1),$sess);
 		}
-		
+
 		if($u !== $p){ // || $u == 'admin260' || $sess['role'] == 'admin'
 			$sess = array_merge(array('ganti_pass'=> 1),$sess);
 		}
-
 		// echo "<pre>",var_dump($sess);die();
 		
 		$this->session->set_userdata($sess);

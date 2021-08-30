@@ -15,7 +15,7 @@ class Home extends CI_Controller {
         $data = array();
         // $this->template->set('title', 'Dashboard');
         $this->load->view('layouts/header', $data);
-        $this->load->view('dashboard', $data);
+        $this->load->view('home', $data);
         $this->load->view('layouts/footer', $data);
 		
 	}

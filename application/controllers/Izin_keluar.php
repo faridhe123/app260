@@ -25,7 +25,7 @@ class Izin_keluar extends MY_Login {
 	}
 
 	public function atasan(){
-		if(substr($this->session->userdata('jabatan'),0,6) !== 'Kepala' ) {
+		if(substr($this->session->userdata('jabatan'),0,6) !== 'Kepala'&& $this->session->userdata('role') !== 'admin' ) {
 			redirect('404');
 		}		
 		header("Access-Control-Allow-Origin: *");

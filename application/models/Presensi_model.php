@@ -23,6 +23,21 @@ class Presensi_model extends CI_model {
 		
 	}
 
+	function getPresensiAdmin($date1,$date2) {
+		$sql="
+			select min(date_record::timestamp),max(date_record::timestamp)
+			from presensi.log_presensi 
+			where date_record::date = current_date::date
+			";
+		$query = $this->db->query($sql);
+		$data = $query->result_array();
+		
+		if($data[0]['min'] == $data[0]['max']) $data[0]['max'] == null;
+
+		return $data[0];
+		
+	}
+
 	function getDBCurrentDate() {
 		$sql="select current_timestamp ";
 		

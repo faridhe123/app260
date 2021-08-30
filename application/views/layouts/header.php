@@ -48,12 +48,19 @@
           </li>
           <li class="nav-item dropdown d-none d-lg-block user-dropdown">
             <a class="nav-link" id="UserDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-              <img class="img-xs rounded-circle" src="<?php echo base_url()?>/assets/template/images/faces/face8.jpg" alt="Profile image"> </a>
+              <!-- <img class="img-xs rounded-circle" src="<?php echo base_url()?>/assets/template/images/faces/face8.jpg" alt="Profile image">  -->
+              <img
+                class="img-xs rounded-circle"
+								src="https://account.kemenkeu.go.id/manage/Uploads/Thumbnails/<?php echo str_replace(' ','',$_SESSION['nip18'])?>.jpg" alt="">
+            </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
               <div class="dropdown-header text-center">
-                <img class="img-md rounded-circle" src="<?php echo base_url()?>/assets/template/images/faces/face8.jpg" alt="Profile image">
-                <p class="fw-light text-muted mb-0"><?php echo $this->session->userdata('username')?></p>
-                <p class="mb-1 mt-3 font-weight-semibold"><?php echo $this->session->userdata('jabatan')?></p>
+                <!-- <img class="img-md rounded-circle" src="<?php echo base_url()?>/assets/template/images/faces/face8.jpg" alt="Profile image"> -->
+                <img
+                  class="img-md rounded-circle"
+                  src="https://account.kemenkeu.go.id/manage/Uploads/Thumbnails/<?php echo str_replace(' ','',$_SESSION['nip18'])?>.jpg" alt="">
+                <p class="mt-1 fw-light text-danger mb-0"><?php echo $this->session->userdata('username')?></p>
+                <p class="my-1 font-weight-semibold"><?php echo $this->session->userdata('jabatan')?></p>
                 <p class="fw-light text-muted mb-0"><?php echo $this->session->userdata('unit')?></p>
               </div>
               <!-- <a class="dropdown-item"><i class="dropdown-item-icon mdi mdi-account-outline text-primary me-2"></i> My Profile <span class="badge badge-pill badge-danger">1</span></a>

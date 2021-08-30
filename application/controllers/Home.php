@@ -2,7 +2,8 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 include_once(APPPATH.'core/MY_Login.php');
 
-class Home extends CI_Controller {
+// class Home extends CI_Controller {
+class Home extends MY_Login {
 	
 	function __construct(){
 		parent::__construct();

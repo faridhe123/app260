@@ -12,6 +12,9 @@ class Presensi extends MY_Login {
 	}
 
 	public function index(){
+		if($this->session->userdata('jenis_akun') !== 'NON ASN'
+			&& $this->session->userdata('role') !== 'admin_turt' && $this->session->userdata('role') !== 'admin'
+			) redirect(site_url().'home');
 		header("Access-Control-Allow-Origin: *");
         $data = array();
 

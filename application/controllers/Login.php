@@ -29,7 +29,10 @@ class Login extends CI_Controller {
 			$redirect_to = null;
 		}
 		
-		$this->Login_model->getlogin($u,$p,$redirect_to);
+		$login = $this->Login_model->getlogin($u,$p,$redirect_to);
+
+		if($login) redirect($redirect_to);
+		else redirect(site_url(''));
 		
 	}
 }

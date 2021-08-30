@@ -60,10 +60,8 @@ class Login_model extends CI_model {
 		
 		$this->session->set_userdata($sess);
 		// print_r($_SESSION);die();
-		if (!isset($redirect_to)) 
-		redirect(site_url(''));
-		else
-		redirect(site_url('').$redirect_to);
+		if (!isset($redirect_to)) return false;
+		else return true;
 		
 	}
 	else{

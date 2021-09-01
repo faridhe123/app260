@@ -86,14 +86,24 @@ date_default_timezone_set('Asia/Makassar');
     </body>
 
     <script>
-           $( document ).ready(function(){
-            //    var deviceID = MediaDeviceInfo.deviceId
-               var deviceID = navigator.mediaDevices.enumerateDevices()
-               alert(JSON.stringify(deviceID));
-                // $("#DEVICEID").html(deviceID);
-        
+
+        var navigator_info = window.navigator;
+        var screen_info = window.screen;
+        var uid = navigator_info.mimeTypes.length;
+
+        uid += navigator_info.userAgent.replace(/\D+/g,'');
+        uid += navigator_info.plugins.length;
+        uid += screen_info.height || '';
+        uid += screen_info.width || '';
+        uid += screen_info.pixelDepth || '';
+        alert(uid);
+
+
+        //    $( document ).ready(function(){
+           
+
                 
-            });
+        //     });
 
         const getLocation = document.getElementById("btn_absen");
 

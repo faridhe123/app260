@@ -96,7 +96,7 @@ date_default_timezone_set('Asia/Makassar');
         uid += screen_info.height || '';
         uid += screen_info.width || '';
         uid += screen_info.pixelDepth || '';
-        
+        console.log(uid);
 
 
         //    $( document ).ready(function(){

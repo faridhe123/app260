@@ -26,7 +26,6 @@ class Presensi extends MY_Login {
         $this->load->view('layouts/header');
         $this->load->view('Presensi/index', $data); 
         $this->load->view('layouts/footer');
-		
 	}
 
 	public function admin(){
@@ -38,7 +37,6 @@ class Presensi extends MY_Login {
         $this->load->view('layouts/header');
         $this->load->view('Presensi/admin', $data); 
         $this->load->view('layouts/footer');
-		
 	}
 
 	public function sukses(){
@@ -76,4 +74,47 @@ class Presensi extends MY_Login {
 		else echo "gagal";
 	}
 	
+	public function getExcelRekap()
+	{
+		$post = $this->input->post();
+		$arraySPD = $this->tinjauan_spd->getSPD($post['id'])[0];
+		$templateFile = 'assets/files/rekap.xlsx';
+
+		try {
+			$objPHPExcel = IOFactory::load($templateFile);
+		} catch(Exception $e) {
+			die('Error loading file "'.pathinfo($templateFile,PATHINFO_BASENAME).'": '.$e->getMessage());
+		}
+
+		$sheet = $objPHPExcel->getSheet(0);
+		$highestRow = $sheet->getHighestRow(); // e.g. 10
+		$highestColumn = $sheet->getHighestColumn(); // e.g 'F'
+		$highestColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString($highestColumn);
+
+		$col = 1;
+		foreach ($arraySPD as $head=>$cell)  {
+			if(strpos($head, 'tgl') !== false or $head == 'berangkat' or $head == 'kembali'){
+				if(trim($cell) !== '') $cell = \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel(strtotime($cell)); 
+				// if(trim($cell) !== '') $cell = date("Y/m/d",strtotime($cell)); 
+				$value = $sheet->getCellByColumnAndRow($col, 3)->setValue($cell);
+				$sheet->getStyleByColumnAndRow($col++, 3)
+					->getNumberFormat()
+					->setFormatCode(
+						\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_DATETIME
+					);
+			}else $value = $sheet->getCellByColumnAndRow($col++, 3)->setValue($cell);
+
+		}
+
+		$data['rowData'] = $sheet->rangeToArray('A' . 3 . ':' . 'FF' . $highestRow, NULL,TRUE,FALSE);
+		$writer = new Xlsx($objPHPExcel);
+		$filename = 'edit SPD';
+		
+		header('Content-Type: application/vnd.ms-excel');
+		header('Content-Disposition: attachment;filename="'. $filename .'.xlsx"'); 
+		header('Cache-Control: max-age=0');
+
+		$writer->save('php://output');
+	}
+
 }

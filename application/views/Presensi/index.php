@@ -24,6 +24,7 @@ date_default_timezone_set('Asia/Makassar');
                             <div class="row">
                                 <!-- <label for="exampleInputUsername2" class="col-sm-3 col-form-label">LAT</label> -->
                                 <input name='username' id='username' type="text"  placeholder="Latitude" value='<?php echo $this->session->userdata('username') ?>' hidden>
+                                <input name='uid' id='uid' type="text" hidden>
                                 <div class="col-sm-6">
                                     <input name='lat' id='lat' type="text" class="form-control" id="exampleInputUsername2" placeholder="Latitude" hidden>
                                 </div>
@@ -96,14 +97,11 @@ date_default_timezone_set('Asia/Makassar');
         uid += screen_info.height || '';
         uid += screen_info.width || '';
         uid += screen_info.pixelDepth || '';
-        console.log(uid);
+        // console.log(uid);
 
-
-        //    $( document ).ready(function(){
-           
-
-                
-        //     });
+        $( document ).ready(function(){
+            $('#uid' ).val(uid);
+        });
 
         const getLocation = document.getElementById("btn_absen");
 
@@ -141,6 +139,7 @@ date_default_timezone_set('Asia/Makassar');
                     // Ubah nilai di form
                     $('#lat').val(latitude);
                     $('#long').val(longitude);
+                    $('#uid').val(uid);
 
                     form = $('#absen_masuk').serialize();
 

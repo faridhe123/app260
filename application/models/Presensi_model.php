@@ -49,7 +49,7 @@ class Presensi_model extends CI_model {
 
 		$sql="
 			-- max ID
-			select max(id)
+			select max(id::int)
 			from presensi.log_presensi a
 			";
 		$query = $this->db->query($sql);
@@ -67,6 +67,7 @@ class Presensi_model extends CI_model {
 			'username' => $data['username'],
 			'long' => $data['long'],
 			'lat' => $data['lat'],
+			'uid' => $data['uid'],
 			'jenis_presensi' => $jenis,
 			'date_record' => date('Y-m-d H:i:s')
 		);

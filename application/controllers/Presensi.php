@@ -60,6 +60,7 @@ class Presensi extends MY_Login {
 		$data['long'] = $_POST["long"];
 		$data['lat'] = $_POST["lat"];
 		$data['username'] = $_POST["username"];
+		$data['uid'] = $_POST["uid"];
     
 		$data['nextID'] = ($this->Presensi_model->getMaxID()??0) + 1;
     

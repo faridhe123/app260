@@ -82,7 +82,7 @@ $fmt->setPattern('cccc, d MMMM yyyy');
                                       </div>
                                     </td>
                                     <td><?php echo date("H:i:s",strtotime($row['masuk'])) ?></td>
-                                    <td><?php echo date("H:i:s",strtotime($row['pulang'])) ?></td>
+                                    <td><?php echo $row['pulang'] ? date("H:i:s",strtotime($row['pulang'])) : "<span class='text-danger'>Belum Absen</span>" ?></td>
                                     <td><?php $list = explode('/',$row['list_uid']);?>
                                       <div class="text-muted text-small" title='<?php foreach($list as $li) echo '- '.$li.'&#10'; ?>'>
                                         <?php echo $row['jumlah_uid']?>

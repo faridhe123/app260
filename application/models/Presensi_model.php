@@ -23,18 +23,24 @@ class Presensi_model extends CI_model {
 		
 	}
 
-	function getPresensiAdmin($date1=null,$date2=null) {
-		$sql="
-			select min(date_record::timestamp),max(date_record::timestamp)
-			from presensi.log_presensi 
-			where date_record::date = current_date::date
-			";
-		$query = $this->db->query($sql);
-		$data = $query->result_array();
+	function getPresensiAdmin($date1,$date2) {
 		
-		if($data[0]['min'] == $data[0]['max']) $data[0]['max'] == null;
-
-		return $data[0];
+		$sql="
+			--getPresensiREKAP
+			select date_record::date,b.username,
+				b.nama,
+				min(date_record)::timestamp::time masuk,
+				case when max(date_record)=min(date_record) then null 
+					else max(date_record) end::timestamp::time pulang,
+				count(distinct uid ) jumlah_uid,
+				string_agg(distinct uid,'/') list_uid
+			from presensi.log_presensi a
+				left join data.akun b on a.username = b.username
+			where date_record::date between '".$date1."' and '".$date2."'
+			group by 1,2,3
+			order by 1,3
+			";
+		return $this->db->query($sql)->result_array();
 		
 	}
 

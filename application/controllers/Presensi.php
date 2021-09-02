@@ -29,10 +29,17 @@ class Presensi extends MY_Login {
 	}
 
 	public function admin(){
+		header("Access-Control-Allow-Origin: *");
 		if($this->session->userdata('role') !== 'admin_turt' && $this->session->userdata('role') !== 'admin') redirect('404');
 
-		header("Access-Control-Allow-Origin: *");
         $data = array();
+		
+		$data['dari'] = $_POST['dari'] ?? date("Y-m-d");
+		$data['sampai'] = $_POST['sampai'] ?? date("Y-m-d");
+
+		$data['hasil'] = $this->Presensi_model->getPresensiAdmin($data['dari'],$data['sampai']);
+		
+		// echo "<pre>",print_r($data['hasil']);die();
 
         $this->load->view('layouts/header');
         $this->load->view('Presensi/admin', $data); 
@@ -77,8 +84,14 @@ class Presensi extends MY_Login {
 	
 	public function getExcelRekap()
 	{
+		if($this->session->userdata('role') !== 'admin_turt' && $this->session->userdata('role') !== 'admin') redirect('404');
+
 		$post = $this->input->post();
-		$arraySPD = $this->tinjauan_spd->getSPD($post['id'])[0];
+		$dari = $post['dari'];$sampai = $post['sampai'];
+		$array_hasil = $this->Presensi_model->getPresensiAdmin($dari,$sampai);
+
+		echo "<pre>",print_r($array);die();
+
 		$templateFile = 'assets/files/rekap.xlsx';
 
 		try {
@@ -87,14 +100,27 @@ class Presensi extends MY_Login {
 			die('Error loading file "'.pathinfo($templateFile,PATHINFO_BASENAME).'": '.$e->getMessage());
 		}
 
+		// Buat sebuah variabel untuk menampung pengaturan style dari isi tabel
+		$style_table_isi = array(
+			'alignment' => array(
+			  'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER, // Set text jadi di tengah secara vertical (middle)
+			  'wrap' => true // wrap
+			),
+			'borders' => array(
+			  'allborders' => array(
+					'style' => PHPExcel_Style_Border::BORDER_THIN
+				  )
+			 )
+		  );
+
 		$sheet = $objPHPExcel->getSheet(0);
 		$highestRow = $sheet->getHighestRow(); // e.g. 10
 		$highestColumn = $sheet->getHighestColumn(); // e.g 'F'
 		$highestColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString($highestColumn);
 
 		$col = 1;
-		foreach ($arraySPD as $head=>$cell)  {
-			if(strpos($head, 'tgl') !== false or $head == 'berangkat' or $head == 'kembali'){
+		foreach ($array_hasil as $head=>$cell)  {
+			if($head == 'date_record'){
 				if(trim($cell) !== '') $cell = \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel(strtotime($cell)); 
 				// if(trim($cell) !== '') $cell = date("Y/m/d",strtotime($cell)); 
 				$value = $sheet->getCellByColumnAndRow($col, 3)->setValue($cell);
@@ -103,13 +129,22 @@ class Presensi extends MY_Login {
 					->setFormatCode(
 						\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_DATETIME
 					);
+			}elseif($head == 'masuk' or $head == 'pulang'){
+				if(trim($cell) !== '') $cell = \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel(strtotime($cell)); 
+				// if(trim($cell) !== '') $cell = date("Y/m/d",strtotime($cell)); 
+				$value = $sheet->getCellByColumnAndRow($col, 3)->setValue($cell);
+				$sheet->getStyleByColumnAndRow($col++, 3)
+					->getNumberFormat()
+					->setFormatCode(
+						\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_TIME
+					);
 			}else $value = $sheet->getCellByColumnAndRow($col++, 3)->setValue($cell);
 
 		}
 
 		$data['rowData'] = $sheet->rangeToArray('A' . 3 . ':' . 'FF' . $highestRow, NULL,TRUE,FALSE);
 		$writer = new Xlsx($objPHPExcel);
-		$filename = 'edit SPD';
+		$filename = 'Rekap Presensi';
 		
 		header('Content-Type: application/vnd.ms-excel');
 		header('Content-Disposition: attachment;filename="'. $filename .'.xlsx"'); 

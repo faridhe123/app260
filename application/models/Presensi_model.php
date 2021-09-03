@@ -75,13 +75,15 @@ class Presensi_model extends CI_model {
 			'lat' => $data['lat'],
 			'uid' => $data['uid'],
 			'user_agent' => $data['user_agent'],
-			'plugins_legnth' => $data['plugins_legnth'],
-			'screen_heigth' => $data['screen_heigth'],
+			'plugins_length' => $data['plugins_length'],
+			'screen_height' => $data['screen_height'],
 			'screen_width' => $data['screen_width'],
 			'pixel_depth' => $data['pixel_depth'],
 			'jenis_presensi' => $jenis,
 			'date_record' => date('Y-m-d H:i:s')
 		);
+
+		// echo json_encode($input);die();
 		// $id_akun = $this->session->userdata('id_akun');
 		// $this->db->where('id_akun', $id_akun);
 		

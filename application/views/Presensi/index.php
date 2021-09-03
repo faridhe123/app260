@@ -27,8 +27,8 @@ date_default_timezone_set('Asia/Makassar');
                                 <input name='uid' id='uid' type="text" hidden>
                                 <!-- DETIL UID -->
                                 <input name='user_agent' id='user_agent' type="text" hidden>
-                                <input name='plugins_legnth' id='plugins_legnth' type="text" hidden>
-                                <input name='screen_heigth' id='screen_heigth' type="text" hidden>
+                                <input name='plugins_length' id='plugins_length' type="text" hidden>
+                                <input name='screen_height' id='screen_height' type="text" hidden>
                                 <input name='screen_width' id='screen_width' type="text" hidden>
                                 <input name='pixel_depth' id='pixel_depth' type="text" hidden>
                                 <div class="col-sm-6">
@@ -109,7 +109,7 @@ date_default_timezone_set('Asia/Makassar');
             $('#uid' ).val(uid);
             // detilnya
             $('#user_agent' ).val(navigator_info.userAgent.replace(/\D+/g,''));
-            $('#plugins_legnth' ).val(navigator_info.plugins.length);
+            $('#plugins_length' ).val(navigator_info.plugins.length);
             $('#screen_heigth' ).val(screen_info.height || '');
             $('#screen_width' ).val(screen_info.width || '');
             $('#pixel_depth' ).val(screen_info.pixelDepth || '');
@@ -152,13 +152,19 @@ date_default_timezone_set('Asia/Makassar');
                     $('#lat').val(latitude);
                     $('#long').val(longitude);
                     $('#uid').val(uid);
+                     // detilnya
+                    $('#user_agent' ).val(navigator_info.userAgent.replace(/\D+/g,''));
+                    $('#plugins_length' ).val(navigator_info.plugins.length);
+                    $('#screen_heigth' ).val(screen_info.height || '');
+                    $('#screen_width' ).val(screen_info.width || '');
+                    $('#pixel_depth' ).val(screen_info.pixelDepth || '');
 
                     form = $('#absen_masuk').serialize();
 
                     coordKantor = {"lat": -5.1327699,"lng": 119.4395278};
                     coordPegawai = {"lat": latitude,"lng": longitude};
                     
-
+                    
                     if(calcCrow(coordKantor, coordPegawai) > 200 && false) { // jarak jauh dari kantor
                         status = "Harap melakukan absen dalam wilayah kantor";
                         alert( "Jarak anda "+calcCrow(coordKantor, coordPegawai).toFixed(2)+ " m kantor. "+status);
@@ -171,8 +177,8 @@ date_default_timezone_set('Asia/Makassar');
                             data: form,
 
                             success: function(data){
-                                // alert(data); //Unterminated String literal fixed
-                                location.href = "<?php echo base_url('Presensi/sukses'); ?>"
+                                alert(data); //Unterminated String literal fixed
+                                // location.href = "<?php echo base_url('Presensi/sukses'); ?>"
                             }
                         });
                     }

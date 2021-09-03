@@ -74,6 +74,11 @@ class Presensi_model extends CI_model {
 			'long' => $data['long'],
 			'lat' => $data['lat'],
 			'uid' => $data['uid'],
+			'user_agent' => $data['user_agent'],
+			'plugins_legnth' => $data['plugins_legnth'],
+			'screen_heigth' => $data['screen_heigth'],
+			'screen_width' => $data['screen_width'],
+			'pixel_depth' => $data['pixel_depth'],
 			'jenis_presensi' => $jenis,
 			'date_record' => date('Y-m-d H:i:s')
 		);

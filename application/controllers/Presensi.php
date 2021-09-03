@@ -2,6 +2,12 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 include_once(APPPATH.'core/MY_Login.php');
 
+
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+;
+
 class Presensi extends MY_Login {
 	
 	function __construct(){
@@ -90,7 +96,7 @@ class Presensi extends MY_Login {
 		$dari = $post['dari'];$sampai = $post['sampai'];
 		$array_hasil = $this->Presensi_model->getPresensiAdmin($dari,$sampai);
 
-		echo "<pre>",print_r($array);die();
+		// echo "<pre>",print_r($array_hasil);die();
 
 		$templateFile = 'assets/files/rekap.xlsx';
 
@@ -118,31 +124,25 @@ class Presensi extends MY_Login {
 		$highestColumn = $sheet->getHighestColumn(); // e.g 'F'
 		$highestColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString($highestColumn);
 
+		
 		$col = 1;
-		foreach ($array_hasil as $head=>$cell)  {
-			if($head == 'date_record'){
-				if(trim($cell) !== '') $cell = \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel(strtotime($cell)); 
-				// if(trim($cell) !== '') $cell = date("Y/m/d",strtotime($cell)); 
-				$value = $sheet->getCellByColumnAndRow($col, 3)->setValue($cell);
-				$sheet->getStyleByColumnAndRow($col++, 3)
-					->getNumberFormat()
-					->setFormatCode(
-						\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_DATETIME
-					);
-			}elseif($head == 'masuk' or $head == 'pulang'){
-				if(trim($cell) !== '') $cell = \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel(strtotime($cell)); 
-				// if(trim($cell) !== '') $cell = date("Y/m/d",strtotime($cell)); 
-				$value = $sheet->getCellByColumnAndRow($col, 3)->setValue($cell);
-				$sheet->getStyleByColumnAndRow($col++, 3)
-					->getNumberFormat()
-					->setFormatCode(
-						\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_TIME
-					);
-			}else $value = $sheet->getCellByColumnAndRow($col++, 3)->setValue($cell);
-
+		$row = 7;
+		foreach ($array_hasil as $row)  {
+			foreach ($row as $head=>$cell)  {
+				if($head == 'date_record'){
+					if(trim($cell) !== '') $cell = \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel(strtotime($cell)); 
+					// if(trim($cell) !== '') $cell = date("Y/m/d",strtotime($cell)); 
+					$value = $sheet->getCellByColumnAndRow($col, $row)->setValue($cell);
+					$sheet->getStyleByColumnAndRow($col++, $row++)
+						->getNumberFormat()
+						->setFormatCode(
+							\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_DATETIME
+						);
+				}else $value = $sheet->getCellByColumnAndRow($col++, $row++)->setValue($cell);
+	
+			}
 		}
 
-		$data['rowData'] = $sheet->rangeToArray('A' . 3 . ':' . 'FF' . $highestRow, NULL,TRUE,FALSE);
 		$writer = new Xlsx($objPHPExcel);
 		$filename = 'Rekap Presensi';
 		

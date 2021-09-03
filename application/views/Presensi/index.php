@@ -98,6 +98,8 @@ date_default_timezone_set('Asia/Makassar');
         var screen_info = window.screen;
         var uid = navigator_info.mimeTypes.length;
 
+        console.log(navigator_info.userAgent)
+
         uid += navigator_info.userAgent.replace(/\D+/g,'');
         uid += navigator_info.plugins.length;
         uid += screen_info.height || '';
@@ -110,7 +112,7 @@ date_default_timezone_set('Asia/Makassar');
             // detilnya
             $('#user_agent' ).val(navigator_info.userAgent.replace(/\D+/g,''));
             $('#plugins_length' ).val(navigator_info.plugins.length);
-            $('#screen_heigth' ).val(screen_info.height || '');
+            $('#screen_height' ).val(screen_info.height || '');
             $('#screen_width' ).val(screen_info.width || '');
             $('#pixel_depth' ).val(screen_info.pixelDepth || '');
         });
@@ -155,7 +157,7 @@ date_default_timezone_set('Asia/Makassar');
                      // detilnya
                     $('#user_agent' ).val(navigator_info.userAgent.replace(/\D+/g,''));
                     $('#plugins_length' ).val(navigator_info.plugins.length);
-                    $('#screen_heigth' ).val(screen_info.height || '');
+                    $('#screen_height' ).val(screen_info.height || '');
                     $('#screen_width' ).val(screen_info.width || '');
                     $('#pixel_depth' ).val(screen_info.pixelDepth || '');
 

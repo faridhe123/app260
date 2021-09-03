@@ -177,8 +177,8 @@ date_default_timezone_set('Asia/Makassar');
                             data: form,
 
                             success: function(data){
-                                alert(data); //Unterminated String literal fixed
-                                // location.href = "<?php echo base_url('Presensi/sukses'); ?>"
+                                // alert(data); //Unterminated String literal fixed
+                                location.href = "<?php echo base_url('Presensi/sukses'); ?>"
                             }
                         });
                     }

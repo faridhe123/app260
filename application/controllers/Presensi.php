@@ -74,6 +74,12 @@ class Presensi extends MY_Login {
 		$data['lat'] = $_POST["lat"];
 		$data['username'] = $_POST["username"];
 		$data['uid'] = $_POST["uid"];
+		# detil UID
+		$data['user_agent'] = $_POST["user_agent"];
+		$data['plugins_legnth'] = $_POST["plugins_legnth"];
+		$data['screen_heigth'] = $_POST["screen_heigth"];
+		$data['screen_width'] = $_POST["screen_width"];
+		$data['pixel_depth'] = $_POST["pixel_depth"];
     
 		$data['nextID'] = ($this->Presensi_model->getMaxID()??0) + 1;
     
@@ -90,6 +96,12 @@ class Presensi extends MY_Login {
 	
 	public function getExcelRekap()
 	{
+
+		date_default_timezone_set('Asia/Makassar');
+		// echo date('Y-m-d H:i:s');
+		$fmt = new \IntlDateFormatter('id_ID', NULL, NULL);
+		$fmt->setPattern('cccc, d MMMM yyyy');  
+
 		if($this->session->userdata('role') !== 'admin_turt' && $this->session->userdata('role') !== 'admin') redirect('404');
 
 		$post = $this->input->post();
@@ -109,12 +121,12 @@ class Presensi extends MY_Login {
 		// Buat sebuah variabel untuk menampung pengaturan style dari isi tabel
 		$style_table_isi = array(
 			'alignment' => array(
-			  'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER, // Set text jadi di tengah secara vertical (middle)
+			  'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER, // Set text jadi di tengah secara vertical (middle)
 			  'wrap' => true // wrap
 			),
 			'borders' => array(
 			  'allborders' => array(
-					'style' => PHPExcel_Style_Border::BORDER_THIN
+					'style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN
 				  )
 			 )
 		  );
@@ -124,23 +136,34 @@ class Presensi extends MY_Login {
 		$highestColumn = $sheet->getHighestColumn(); // e.g 'F'
 		$highestColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString($highestColumn);
 
-		
-		$col = 1;
+		// DARI
+		$sheet->getCellByColumnAndRow('3', '3')->setValue($fmt->format(new \DateTime($dari)));
+		// SAMPAI
+		$sheet->getCellByColumnAndRow('3', '4')->setValue($fmt->format(new \DateTime($sampai)));
+
+
 		$row = 7;
-		foreach ($array_hasil as $row)  {
-			foreach ($row as $head=>$cell)  {
-				if($head == 'date_record'){
-					if(trim($cell) !== '') $cell = \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel(strtotime($cell)); 
-					// if(trim($cell) !== '') $cell = date("Y/m/d",strtotime($cell)); 
-					$value = $sheet->getCellByColumnAndRow($col, $row)->setValue($cell);
-					$sheet->getStyleByColumnAndRow($col++, $row++)
-						->getNumberFormat()
-						->setFormatCode(
-							\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_DATETIME
-						);
-				}else $value = $sheet->getCellByColumnAndRow($col++, $row++)->setValue($cell);
-	
-			}
+		$index = 1;
+		foreach ($array_hasil as $rows)  {
+			$sheet->getCellByColumnAndRow('1', $row)->setValue($index++);
+			$col = 2;
+
+			if(trim($rows['date_record']) !== '') $rows[''] = \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel(strtotime($rows['date_record'])); 
+			// if(trim($cell) !== '') $cell = date("Y/m/d",strtotime($cell)); 
+			$sheet->getCellByColumnAndRow($col, $row)->setValue($rows['date_record']);
+			$sheet->getStyleByColumnAndRow($col++, $row)
+				->getNumberFormat()
+				->setFormatCode(
+					\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_DATETIME
+				);
+
+			$sheet->getCellByColumnAndRow($col++, $row)->setValue($rows['nama']);
+			$sheet->getCellByColumnAndRow($col++, $row)->setValue($rows['username']);
+			$sheet->getCellByColumnAndRow($col++, $row)->setValue($rows['masuk']);
+			$sheet->getCellByColumnAndRow($col++, $row)->setValue($rows['pulang']);
+			$sheet->getCellByColumnAndRow($col++, $row)->setValue($rows['list_uid']);
+
+			$row++;
 		}
 
 		$writer = new Xlsx($objPHPExcel);

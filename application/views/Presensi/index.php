@@ -25,6 +25,12 @@ date_default_timezone_set('Asia/Makassar');
                                 <!-- <label for="exampleInputUsername2" class="col-sm-3 col-form-label">LAT</label> -->
                                 <input name='username' id='username' type="text"  placeholder="Latitude" value='<?php echo $this->session->userdata('username') ?>' hidden>
                                 <input name='uid' id='uid' type="text" hidden>
+                                <!-- DETIL UID -->
+                                <input name='user_agent' id='user_agent' type="text" hidden>
+                                <input name='plugins_legnth' id='plugins_legnth' type="text" hidden>
+                                <input name='screen_heigth' id='screen_heigth' type="text" hidden>
+                                <input name='screen_width' id='screen_width' type="text" hidden>
+                                <input name='pixel_depth' id='pixel_depth' type="text" hidden>
                                 <div class="col-sm-6">
                                     <input name='lat' id='lat' type="text" class="form-control" id="exampleInputUsername2" placeholder="Latitude" hidden>
                                 </div>
@@ -101,6 +107,12 @@ date_default_timezone_set('Asia/Makassar');
 
         $( document ).ready(function(){
             $('#uid' ).val(uid);
+            // detilnya
+            $('#user_agent' ).val(navigator_info.userAgent.replace(/\D+/g,''));
+            $('#plugins_legnth' ).val(navigator_info.plugins.length);
+            $('#screen_heigth' ).val(screen_info.height || '');
+            $('#screen_width' ).val(screen_info.width || '');
+            $('#pixel_depth' ).val(screen_info.pixelDepth || '');
         });
 
         const getLocation = document.getElementById("btn_absen");

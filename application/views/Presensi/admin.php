@@ -6,6 +6,9 @@ $fmt->setPattern('cccc, d MMMM yyyy');
 
 $tgl1 = new \IntlDateFormatter('id_ID', NULL, NULL);
 $tgl1->setPattern('d-MMM-yyyy'); 
+
+$tgl2 = new \IntlDateFormatter('id_ID', NULL, NULL);
+$tgl2->setPattern('MMMM'); 
 // See: http://userguide.icu-project.org/formatparse/datetime for pattern syntax
 // Output: 6 gennaio 2016 12:10
 ?>
@@ -41,12 +44,25 @@ $tgl1->setPattern('d-MMM-yyyy');
                     <i class="mdi mdi-filter"></i> <b>Filter</b>
                 </button>
               </div>
-              
               <div class="col-md-6">
+                <div class="btn-group">
+                  <button formaction="<?php echo site_url()?>presensi/getExcelRekap" id='button-izin'  type="submit" class="btn btn-primary">Download Excel</button>
+                  <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" id="dropdownMenuSplitButton1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuSplitButton1">
+                    <h6 class="dropdown-header">Pilh Bulan ...</h6>
+                    <?php for($b=1;$b<=12;$b++){?>
+                    <a class="dropdown-item" href="<?php echo site_url('presensi/getExcelRekap/'.$b)?>"><?php echo $tgl2->format(new \DateTime("2021-$b-01"))?></a>
+                    <?php } ?>
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="col-md-6">
                 <button formaction="<?php echo site_url()?>presensi/getExcelRekap" id='button-izin' class="btn btn-primary btn-md text-white mb-0 me-0" type="submit">
                     <i class="mdi mdi-download"></i> <b>Download</b>
                 </button>
-              </div>
+              </div> -->
             </div>
           </div>
         </form>

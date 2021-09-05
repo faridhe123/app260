@@ -34,7 +34,7 @@ class Presensi extends MY_Login {
         $this->load->view('layouts/footer');
 	}
 
-	public function admin(){
+	public function admin($bulan=null){
 		header("Access-Control-Allow-Origin: *");
 		if($this->session->userdata('role') !== 'admin_turt' && $this->session->userdata('role') !== 'admin') redirect('404');
 
@@ -43,7 +43,7 @@ class Presensi extends MY_Login {
 		$data['dari'] = $_POST['dari'] ?? date("Y-m-d");
 		$data['sampai'] = $_POST['sampai'] ?? date("Y-m-d");
 
-		$data['hasil'] = $this->Presensi_model->getPresensiAdmin($data['dari'],$data['sampai']);
+		$data['hasil'] = $this->Presensi_model->getPresensiAdmin($data['dari'],$data['sampai'],$bulan);
 		
 		// echo "<pre>",print_r($data['hasil']);die();
 
@@ -98,7 +98,7 @@ class Presensi extends MY_Login {
 		else echo "gagal";
 	}
 	
-	public function getExcelRekap()
+	public function getExcelRekap($bulan=null)
 	{
 		if($this->session->userdata('role') !== 'admin_turt' && $this->session->userdata('role') !== 'admin') redirect('404');
 
@@ -108,16 +108,20 @@ class Presensi extends MY_Login {
 		$fmt->setPattern('cccc, d MMMM yyyy');  
 		$month = new \IntlDateFormatter('id_ID', NULL, NULL);
 		$month->setPattern('MMMM');  
-
+		
 		if($this->session->userdata('role') !== 'admin_turt' && $this->session->userdata('role') !== 'admin') redirect('404');
-
+		
 		$post = $this->input->post();
-		$dari = $post['dari'];$sampai = $post['sampai'];
-		$array_hasil = $this->Presensi_model->getPresensiAdmin($dari,$sampai);
-		$array_hasil_2 = $this->Presensi_model->getRekapBulan(9);
-
-
+		if($bulan == null){
+			$dari = $post['dari'];$sampai = $post['sampai'];
+		}else{
+			$dari = null;$sampai = null;
+		}
+		$array_hasil = $this->Presensi_model->getPresensiAdmin($dari,$sampai,$bulan);
+		$array_hasil_2 = $this->Presensi_model->getRekapBulan($dari,$sampai,$bulan);
 		// echo "<pre>",print_r($array_hasil_2);die();
+		
+
 
 		$templateFile = 'assets/files/rekap.xlsx';
 
@@ -147,10 +151,10 @@ class Presensi extends MY_Login {
 		$highestColumn = $sheet->getHighestColumn(); // e.g 'F'
 		$highestColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString($highestColumn);
 
-		// DARI
-		$sheet->getCellByColumnAndRow('3', '3')->setValue($fmt->format(new \DateTime($dari)));
-		// SAMPAI
-		$sheet->getCellByColumnAndRow('3', '4')->setValue($fmt->format(new \DateTime($sampai)));
+		// Keterangan Masa
+		if($bulan == null ) $sheet->getCellByColumnAndRow('2', '3')->setValue('Dari '.$fmt->format(new \DateTime($dari)).' sampai '.$fmt->format(new \DateTime($sampai)));
+		else $sheet->getCellByColumnAndRow('2', '3')->setValue("Bulan : ".$month->format(new \DateTime('2021-'.$bulan.'-09')));
+		
 
 
 		$row = 7;
@@ -184,11 +188,27 @@ class Presensi extends MY_Login {
 
 		# UNTUK SHEET 2 : REKAP
 		$sheet = $objPHPExcel->getSheet(1);
+		$last= DateTime::createFromFormat('!m', '9')->format('t');
 
-		// BULAN
-		$sheet->getCellByColumnAndRow('3', '3')->setValue($month->format(new \DateTime('2021-09-09')));
+		// Keterangan Masa
+		if($bulan == null ) $sheet->getCellByColumnAndRow('2', '3')->setValue('Dari '.$fmt->format(new \DateTime($dari)).' sampai '.$fmt->format(new \DateTime($sampai)));
+		else $sheet->getCellByColumnAndRow('2', '3')->setValue("Bulan : ".$month->format(new \DateTime('2021-'.$bulan.'-09')));
 		$row = 7;
 		$index = 1;
+		
+		$col = 5;
+		# tambah nama kolom
+		if($bulan !== null){
+			for($i=1;$i<=$last;$i++){
+				$sheet->getCellByColumnAndRow($col++, 6)->setValue($i);
+			}
+		}else{
+			$tanggal = $dari;
+			while(strtotime($tanggal) <= strtotime($sampai)){
+				$sheet->getCellByColumnAndRow($col++, 6)->setValue(date("d-m",strtotime($tanggal)));
+				$tanggal = date('Y-m-d',strtotime($tanggal. " +1 day"));
+			}
+		}
 
 		# Mulai input
 		foreach ($array_hasil_2 as $rows)  {
@@ -199,19 +219,33 @@ class Presensi extends MY_Login {
 			$sheet->getCellByColumnAndRow($col++, $row)->setValue($rows['nama']);
 			$sheet->getCellByColumnAndRow($col++, $row)->setValue('MASUK');
 			
-			$last= DateTime::createFromFormat('!m', '9')->format('t');
-			# Repeat Masuk
-			for($i=1;$i<=$last;$i++){
-				$sheet->getCellByColumnAndRow($col++, $row)->setValue($rows['masuk_'.str_pad($i,2,0,STR_PAD_LEFT)]);
+			# Repeat Masuk BULAN
+			if($bulan !== null){
+				for($i=1;$i<=$last;$i++){
+					$sheet->getCellByColumnAndRow($col++, $row)->setValue($rows['masuk_'.str_pad($i,2,0,STR_PAD_LEFT)]);
+				}
+			}else{
+				$tanggal = $dari;
+				while(strtotime($tanggal) <= strtotime($sampai)){
+					$sheet->getCellByColumnAndRow($col++, $row)->setValue($rows['masuk_'.str_pad(date("m",strtotime($tanggal)),2,0,STR_PAD_LEFT).str_pad(date("d",strtotime($tanggal)),2,0,STR_PAD_LEFT)]);
+					$tanggal = date('Y-m-d',strtotime($tanggal. " +1 day"));
+				}
 			}
 			$row++;
 			$col = 4;
-			$sheet->getCellByColumnAndRow($col++, $row)->setValue('PULANG');
-			# Repeat Pulang
-			for($i=1;$i<=$last;$i++){
-				if($rows['pulang_'.str_pad($i,2,0,STR_PAD_LEFT)] == $rows['masuk_'.str_pad($i,2,0,STR_PAD_LEFT)]) $pulang = null;
-				else $pulang = $rows['pulang_'.str_pad($i,2,0,STR_PAD_LEFT)];
-				$sheet->getCellByColumnAndRow($col++, $row)->setValue($pulang);
+			$sheet->getCellByColumnAndRow($col++, $row)->setValue('MASUK');
+			
+			# Repeat Masuk BULAN
+			if($bulan !== null){
+				for($i=1;$i<=$last;$i++){
+					$sheet->getCellByColumnAndRow($col++, $row)->setValue($rows['pulang_'.str_pad($i,2,0,STR_PAD_LEFT)]);
+				}
+			}else{
+				$tanggal = $dari;
+				while(strtotime($tanggal) <= strtotime($sampai)){
+					$sheet->getCellByColumnAndRow($col++, $row)->setValue($rows['pulang_'.str_pad(date("m",strtotime($tanggal)),2,0,STR_PAD_LEFT).str_pad(date("d",strtotime($tanggal)),2,0,STR_PAD_LEFT)]);
+					$tanggal = date('Y-m-d',strtotime($tanggal. " +1 day"));
+				}
 			}
 			$row++;
 		}

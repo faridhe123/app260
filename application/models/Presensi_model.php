@@ -23,40 +23,59 @@ class Presensi_model extends CI_model {
 		
 	}
 
-	function getPresensiAdmin($date1,$date2) {
+	function getPresensiAdmin($date1,$date2,$bulan=null) {
 		
 		$sql="
 			select * 
-			from presensi.v_rekap_presensi
-			where date_record::date between '".$date1."' and '".$date2."'
-			";
+			from presensi.v_rekap_presensi ";
+		if($bulan !== null) $sql .= " where extract('month' from date_record::date) = '".$bulan."'";
+		else $sql .= " where date_record::date between '".$date1."' and '".$date2."'";
+
 		return $this->db->query($sql)->result_array();
 		
 	}
 
-	function getRekapBulan($bulan) {
+	function getRekapBulan($date1,$date2,$bulan=null) {
 
-		$last = DateTime::createFromFormat('!m', $bulan)->format('t');
+		
 		
 		$sql="
 		-- rekap per SEBULAN
 			select b.username, b.nama , ";
 
+		if($bulan !== null){
+		$last = DateTime::createFromFormat('!m', $bulan)->format('t');
 		for($tgl = 1;$tgl <= $last;$tgl++ ){
-		$sql .= "
-				string_agg(case when a.date_record = '2021-".str_pad($bulan,2,0,STR_PAD_LEFT)."-".str_pad($tgl,2,0,STR_PAD_LEFT)."' then masuk::text else null end,'') masuk_".str_pad($tgl,2,0,STR_PAD_LEFT).",
-				string_agg(case when a.date_record = '2021-".str_pad($bulan,2,0,STR_PAD_LEFT)."-".str_pad($tgl,2,0,STR_PAD_LEFT)."' then pulang::text else null end,'') pulang_".str_pad($tgl,2,0,STR_PAD_LEFT).",
-			";
+			$sql .= "
+					string_agg(case when a.date_record = '2021-".str_pad($bulan,2,0,STR_PAD_LEFT)."-".str_pad($tgl,2,0,STR_PAD_LEFT)."' then masuk::text else null end,'') masuk_".str_pad($tgl,2,0,STR_PAD_LEFT).",
+					string_agg(case when a.date_record = '2021-".str_pad($bulan,2,0,STR_PAD_LEFT)."-".str_pad($tgl,2,0,STR_PAD_LEFT)."' then pulang::text else null end,'') pulang_".str_pad($tgl,2,0,STR_PAD_LEFT).",
+				";
+			}
+		}else{
+			$tanggal = $date1;
+			while(strtotime($tanggal) <= strtotime($date2)){
+				$sql .= "
+						string_agg(case when a.date_record = '".date("Y-m-d",strtotime($tanggal))."' then masuk::text else null end,'') masuk_".str_pad(date("m",strtotime($tanggal)),2,0,STR_PAD_LEFT).str_pad(date("d",strtotime($tanggal)),2,0,STR_PAD_LEFT).",
+						string_agg(case when a.date_record = '".date("Y-m-d",strtotime($tanggal))."' then pulang::text else null end,'') pulang_".str_pad(date("m",strtotime($tanggal)),2,0,STR_PAD_LEFT).str_pad(date("d",strtotime($tanggal)),2,0,STR_PAD_LEFT).",
+					";
+
+				$tanggal = date('Y-m-d',strtotime($tanggal. " +1 day"));
+			}
 		}
 
 		$sql .= "'end' selesai
 				from presensi.v_rekap_presensi a
-					full join data.akun b on a.username = b.username
-				where extract('month' from date_record) = '$bulan' or a.username is null
+					full join data.akun b on a.username = b.username";
+					
+		if($bulan !== null) $sql .= " where extract('month' from date_record::date) = '".$bulan."'";
+		else $sql .= " where date_record::date between '".$date1."' and '".$date2."'";
+
+		$sql .=" or a.username is null
 				group by b.username , b.nama
 				order by 3";
 		$result = $this->db->query($sql)->result_array();
 		// echo "<pre>", print_r($result);die();
+		// echo "<pre>", print_r($sql);die();
 
 		return $result;
 	}

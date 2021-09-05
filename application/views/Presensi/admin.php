@@ -3,11 +3,57 @@ date_default_timezone_set('Asia/Makassar');
 // echo date('Y-m-d H:i:s');
 $fmt = new \IntlDateFormatter('id_ID', NULL, NULL);
 $fmt->setPattern('cccc, d MMMM yyyy'); 
+
+$tgl1 = new \IntlDateFormatter('id_ID', NULL, NULL);
+$tgl1->setPattern('d-MMM-yyyy'); 
 // See: http://userguide.icu-project.org/formatparse/datetime for pattern syntax
 // Output: 6 gennaio 2016 12:10
 ?>
  <!-- MDF -->
-
+ <div class="card card-rounded mb-2">
+  <div class="card-body">
+    <div class="row">
+      <div>
+        <form method='POST' >
+        <div class="row">
+            <div class="form-group row col-md-7 align-items-center">
+                <label for="exampleInputUsername2" class="col-sm-2 col-form-label">TGL</label>
+                <div class="col-sm-5">
+                  <div id="datepicker-popupA" class="input-group date datepicker navbar-date-picker">
+                      <span class="input-group-addon input-group-prepend border-right">
+                          <span class="icon-calendar input-group-text calendar-icon"></span>
+                      </span>
+                      <input id='i_tanggal' type="text" class="form-control" name='dari' value='<?php echo $dari?>'>
+                  </div>
+                </div>
+                <div class="col-sm-5">
+                  <div id="datepicker-popupB" class="input-group date datepicker navbar-date-picker">
+                      <span class="input-group-addon input-group-prepend border-right">
+                          <span class="icon-calendar input-group-text calendar-icon"></span>
+                      </span>
+                      <input id='i_tanggal' type="text" class="form-control" name='sampai' value='<?php echo $sampai?>'>
+                  </div>
+                </div>
+            </div>
+            <div class="col-md-5 row">
+              <div class="col-md-6">
+                <button formaction="<?php echo site_url()?>presensi/admin" id='button-izin' class="btn btn-success btn-md text-white mb-0 me-0" type="submit">
+                    <i class="mdi mdi-filter"></i> <b>Filter</b>
+                </button>
+              </div>
+              
+              <div class="col-md-6">
+                <button formaction="<?php echo site_url()?>presensi/getExcelRekap" id='button-izin' class="btn btn-primary btn-md text-white mb-0 me-0" type="submit">
+                    <i class="mdi mdi-download"></i> <b>Download</b>
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="row flex-grow">
   <div class="col-12 grid-margin stretch-card">
     <div class="card card-rounded">
@@ -16,44 +62,9 @@ $fmt->setPattern('cccc, d MMMM yyyy');
           <div class="col-lg-12">
             <div class="d-flex justify-content-between align-items-center mb-3">
               <div>
-                <h4 class="card-title card-title-dash">Rekap Presensi</h4>
-              </div>
-              <div>
-                <form method='POST' >
-                <div class="row">
-                    <div class="form-group row col-md-7 align-items-center">
-                        <label for="exampleInputUsername2" class="col-sm-2 col-form-label">TGL</label>
-                        <div class="col-sm-5">
-                          <div id="datepicker-popupA" class="input-group date datepicker navbar-date-picker">
-                              <span class="input-group-addon input-group-prepend border-right">
-                                  <span class="icon-calendar input-group-text calendar-icon"></span>
-                              </span>
-                              <input id='i_tanggal' type="text" class="form-control" name='dari' value='<?php echo $dari?>'>
-                          </div>
-                        </div>
-                        <div class="col-sm-5">
-                          <div id="datepicker-popupB" class="input-group date datepicker navbar-date-picker">
-                              <span class="input-group-addon input-group-prepend border-right">
-                                  <span class="icon-calendar input-group-text calendar-icon"></span>
-                              </span>
-                              <input id='i_tanggal' type="text" class="form-control" name='sampai' value='<?php echo $sampai?>'>
-                          </div>
-                        </div>
-                    </div>
-                    <div class="col-md-5 row">
-                      <div class="col-md-6">
-                        <button formaction="<?php echo site_url()?>presensi/admin" id='button-izin' class="btn btn-success btn-md text-white mb-0 me-0" type="submit">
-                            <i class="mdi mdi-filter"></i> <b>Filter</b>
-                        </button>
-                      </div>
-                      <div class="col-md-6">
-                        <button formaction="<?php echo site_url()?>presensi/getExcelRekap" id='button-izin' class="btn btn-primary btn-md text-white mb-0 me-0" type="submit">
-                            <i class="mdi mdi-download"></i> <b>Download</b>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </form>
+                <h4 class="card-title card-title-dash">Rekap Presensi 
+                    <?php  echo ($dari == date('Y-m-d') && $sampai == date('Y-m-d')) ? ' HARI INI' 
+                      : '<span class="text-danger">'.$tgl1->format(new \DateTime($dari)).' - '.$tgl1->format(new \DateTime($sampai)).'</span>'; ?></h4>
               </div>
             </div>
             <div class="mt-3">

@@ -26,22 +26,39 @@ class Presensi_model extends CI_model {
 	function getPresensiAdmin($date1,$date2) {
 		
 		$sql="
-			--getPresensiREKAP
-			select date_record::date,b.username,
-				b.nama,
-				min(date_record)::timestamp::time masuk,
-				case when max(date_record)=min(date_record) then null 
-					else max(date_record) end::timestamp::time pulang,
-				count(distinct uid ) jumlah_uid,
-				string_agg(distinct uid,'/') list_uid
-			from presensi.log_presensi a
-				left join data.akun b on a.username = b.username
+			select * 
+			from presensi.v_rekap_presensi
 			where date_record::date between '".$date1."' and '".$date2."'
-			group by 1,2,3
-			order by 1,3
 			";
 		return $this->db->query($sql)->result_array();
 		
+	}
+
+	function getRekapBulan($bulan) {
+
+		$last = DateTime::createFromFormat('!m', $bulan)->format('t');
+		
+		$sql="
+		-- rekap per SEBULAN
+			select b.username, b.nama , ";
+
+		for($tgl = 1;$tgl <= $last;$tgl++ ){
+		$sql .= "
+				string_agg(case when a.date_record = '2021-".str_pad($bulan,2,0,STR_PAD_LEFT)."-".str_pad($tgl,2,0,STR_PAD_LEFT)."' then masuk::text else null end,'') masuk_".str_pad($tgl,2,0,STR_PAD_LEFT).",
+				string_agg(case when a.date_record = '2021-".str_pad($bulan,2,0,STR_PAD_LEFT)."-".str_pad($tgl,2,0,STR_PAD_LEFT)."' then pulang::text else null end,'') pulang_".str_pad($tgl,2,0,STR_PAD_LEFT).",
+			";
+		}
+
+		$sql .= "'end' selesai
+				from presensi.v_rekap_presensi a
+					full join data.akun b on a.username = b.username
+				where extract('month' from date_record) = '$bulan' or a.username is null
+				group by b.username , b.nama
+				order by 3";
+		$result = $this->db->query($sql)->result_array();
+		// echo "<pre>", print_r($result);die();
+
+		return $result;
 	}
 
 	function getDBCurrentDate() {

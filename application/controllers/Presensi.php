@@ -100,19 +100,24 @@ class Presensi extends MY_Login {
 	
 	public function getExcelRekap()
 	{
+		if($this->session->userdata('role') !== 'admin_turt' && $this->session->userdata('role') !== 'admin') redirect('404');
 
 		date_default_timezone_set('Asia/Makassar');
 		// echo date('Y-m-d H:i:s');
 		$fmt = new \IntlDateFormatter('id_ID', NULL, NULL);
 		$fmt->setPattern('cccc, d MMMM yyyy');  
+		$month = new \IntlDateFormatter('id_ID', NULL, NULL);
+		$month->setPattern('MMMM');  
 
 		if($this->session->userdata('role') !== 'admin_turt' && $this->session->userdata('role') !== 'admin') redirect('404');
 
 		$post = $this->input->post();
 		$dari = $post['dari'];$sampai = $post['sampai'];
 		$array_hasil = $this->Presensi_model->getPresensiAdmin($dari,$sampai);
+		$array_hasil_2 = $this->Presensi_model->getRekapBulan(9);
 
-		// echo "<pre>",print_r($array_hasil);die();
+
+		// echo "<pre>",print_r($array_hasil_2);die();
 
 		$templateFile = 'assets/files/rekap.xlsx';
 
@@ -129,12 +134,14 @@ class Presensi extends MY_Login {
 			  'wrap' => true // wrap
 			),
 			'borders' => array(
-			  'allborders' => array(
-					'style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN
+			  'allBorders' => array(
+					'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+					'color' => ['argb' => '000000'],
 				  )
 			 )
 		  );
-
+		  
+		# UNTUK SHEET 1 : LOG
 		$sheet = $objPHPExcel->getSheet(0);
 		$highestRow = $sheet->getHighestRow(); // e.g. 10
 		$highestColumn = $sheet->getHighestColumn(); // e.g 'F'
@@ -148,6 +155,8 @@ class Presensi extends MY_Login {
 
 		$row = 7;
 		$index = 1;
+
+		# Muali input
 		foreach ($array_hasil as $rows)  {
 			$sheet->getCellByColumnAndRow('1', $row)->setValue($index++);
 			$col = 2;
@@ -169,6 +178,47 @@ class Presensi extends MY_Login {
 
 			$row++;
 		}
+		
+		# kasih border untuk isiannya
+		$sheet->getStyle('A7:G'.$row)->applyFromArray($style_table_isi);
+
+		# UNTUK SHEET 2 : REKAP
+		$sheet = $objPHPExcel->getSheet(1);
+
+		// BULAN
+		$sheet->getCellByColumnAndRow('3', '3')->setValue($month->format(new \DateTime('2021-09-09')));
+		$row = 7;
+		$index = 1;
+
+		# Mulai input
+		foreach ($array_hasil_2 as $rows)  {
+			$sheet->getCellByColumnAndRow('1', $row)->setValue($index++);
+			$col = 2;
+			// if(trim($cell) !== '') $cell = date("Y/m/d",strtotime($cell)); 
+			$sheet->getCellByColumnAndRow($col++, $row)->setValue($rows['username']);
+			$sheet->getCellByColumnAndRow($col++, $row)->setValue($rows['nama']);
+			$sheet->getCellByColumnAndRow($col++, $row)->setValue('MASUK');
+			
+			$last= DateTime::createFromFormat('!m', '9')->format('t');
+			# Repeat Masuk
+			for($i=1;$i<=$last;$i++){
+				$sheet->getCellByColumnAndRow($col++, $row)->setValue($rows['masuk_'.str_pad($i,2,0,STR_PAD_LEFT)]);
+			}
+			$row++;
+			$col = 4;
+			$sheet->getCellByColumnAndRow($col++, $row)->setValue('PULANG');
+			# Repeat Pulang
+			for($i=1;$i<=$last;$i++){
+				if($rows['pulang_'.str_pad($i,2,0,STR_PAD_LEFT)] == $rows['masuk_'.str_pad($i,2,0,STR_PAD_LEFT)]) $pulang = null;
+				else $pulang = $rows['pulang_'.str_pad($i,2,0,STR_PAD_LEFT)];
+				$sheet->getCellByColumnAndRow($col++, $row)->setValue($pulang);
+			}
+			$row++;
+		}
+
+		# kasih border untuk isiannya
+		$sheet->getStyle('A7:AI'.$row)->applyFromArray($style_table_isi);
+
 
 		$writer = new Xlsx($objPHPExcel);
 		$filename = 'Rekap Presensi';

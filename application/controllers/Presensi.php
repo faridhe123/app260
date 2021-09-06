@@ -34,6 +34,21 @@ class Presensi extends MY_Login {
         $this->load->view('layouts/footer');
 	}
 
+	public function uid(){
+		if($this->session->userdata('jenis_akun') !== 'NON ASN'
+			&& $this->session->userdata('role') !== 'admin_turt' && $this->session->userdata('role') !== 'admin'
+			) redirect(site_url().'home');
+		header("Access-Control-Allow-Origin: *");
+        $data = array();
+
+		$data['hasil'] = $this->Presensi_model->getUID();
+		$data['notifikasi'] = $this->Presensi_model->deteksiUID();
+
+        $this->load->view('layouts/header');
+        $this->load->view('Presensi/uid', $data); 
+        $this->load->view('layouts/footer');
+	}
+
 	public function admin($bulan=null){
 		header("Access-Control-Allow-Origin: *");
 		if($this->session->userdata('role') !== 'admin_turt' && $this->session->userdata('role') !== 'admin') redirect('404');

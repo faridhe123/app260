@@ -7,6 +7,31 @@ class Presensi_model extends CI_model {
 		parent::__construct();
 	}
 
+	function getUID() {
+		
+		$query = $this->db->get('data.v_list_uid');
+		$data = $query->result_array();
+
+		// echo "<pre>",print_r($data);die();
+		return $data;
+		
+	}
+
+	function deteksiUID() {
+		$sql="
+		-- 4. Deteksi User Menggunakan UID Lain
+			select
+				case when a.username = b.username then 'Cocok' else c.nama||' absen '|| a.jenis_presensi ||' menggunakan UID  '||b.user_pemilik end indikasi,
+			a.*
+			from presensi.log_presensi a
+				left join data.v_list_uid b on a.uid  = b.uid
+				left join data.v_join_asn_nonasn c on a.username = c.username 
+			where a.username != b.username";
+
+		return $this->db->query($sql)->result_array();
+		
+	}
+
 	function getPresensi($username) {
 		$sql="
 			select min(date_record::timestamp),max(date_record::timestamp)

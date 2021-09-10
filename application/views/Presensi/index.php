@@ -167,7 +167,7 @@ date_default_timezone_set('Asia/Makassar');
                     coordPegawai = {"lat": latitude,"lng": longitude};
                     
                     
-                    if(calcCrow(coordKantor, coordPegawai) > 200 && false) { // jarak jauh dari kantor
+                    if(calcCrow(coordKantor, coordPegawai) > 200) { // jarak jauh dari kantor
                         status = "Harap melakukan absen dalam wilayah kantor";
                         alert( "Jarak anda "+calcCrow(coordKantor, coordPegawai).toFixed(2)+ " m kantor. "+status);
                     }
@@ -184,11 +184,8 @@ date_default_timezone_set('Asia/Makassar');
                             }
                         });
                     }
-
                     //alert( "Jarak anda "+calcCrow(Kantor, Pegawai).toFixed(2)+ " m kantor. "+status);
 
-                    
-       
                     console.log(form)  
                 },error=>{                      // jika error
                     console.log(error.code)

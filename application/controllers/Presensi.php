@@ -248,7 +248,7 @@ class Presensi extends MY_Login {
 			}
 			$row++;
 			$col = 4;
-			$sheet->getCellByColumnAndRow($col++, $row)->setValue('MASUK');
+			$sheet->getCellByColumnAndRow($col++, $row)->setValue('PULANG');
 			
 			# Repeat Masuk BULAN
 			if($bulan !== null){

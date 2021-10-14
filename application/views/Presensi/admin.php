@@ -81,7 +81,8 @@ $tgl2->setPattern('MMMM');
                 <h4 class="card-title card-title-dash">Rekap Presensi 
                     <?php  echo ($dari == date('Y-m-d') && $sampai == date('Y-m-d')) ? ' HARI INI' 
                       : '<span class="text-danger">'.$tgl1->format(new \DateTime($dari)).' - '.$tgl1->format(new \DateTime($sampai)).'</span>'; ?></h4>
-              </div>
+                <a class="btn btn-primary" href="<?php echo site_url('presensi/uid')?>">CEK UID</a>
+            </div>
             </div>
             <div class="mt-3">
               <div class="table-responsive">

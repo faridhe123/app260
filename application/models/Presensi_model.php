@@ -26,10 +26,10 @@ class Presensi_model extends CI_model {
 			from presensi.log_presensi a
 				left join data.v_list_uid b on a.uid  = b.uid
 				left join data.v_join_asn_nonasn c on a.username = c.username 
-			where a.username != b.username";
+			where a.username != b.username
+			order by date_record desc";
 
 		return $this->db->query($sql)->result_array();
-		
 	}
 
 	function getPresensi($username) {

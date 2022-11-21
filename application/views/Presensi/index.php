@@ -20,7 +20,7 @@ date_default_timezone_set('Asia/Makassar');
                             <h4 id='DEVICEID' class="card-title card-title-dash"></h4>
                         </div>
                         <hr/>
-                        <form id='absen_masuk' method='POST' >            
+                        <form id='absen_masuk' method='POST' >
                             <div class="row">
                                 <!-- <label for="exampleInputUsername2" class="col-sm-3 col-form-label">LAT</label> -->
                                 <input name='username' id='username' type="text"  placeholder="Latitude" value='<?php echo $this->session->userdata('username') ?>' hidden>
@@ -87,9 +87,9 @@ date_default_timezone_set('Asia/Makassar');
                     </div>
                 </div>
             </div>
-            
+
         </div>
-        
+
     </body>
 
     <script>
@@ -131,8 +131,8 @@ date_default_timezone_set('Asia/Makassar');
             var lat2 = toRad(coord2.lat);
 
             var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-                Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2); 
-            var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+                Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2);
+            var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
             var d = R * c;
             return d;
         }
@@ -165,9 +165,9 @@ date_default_timezone_set('Asia/Makassar');
 
                     coordKantor = {"lat": -5.1327699,"lng": 119.4395278};
                     coordPegawai = {"lat": latitude,"lng": longitude};
-                    
-                    
-                    if(calcCrow(coordKantor, coordPegawai) > 200) { // jarak jauh dari kantor
+
+
+                    if(calcCrow(coordKantor, coordPegawai) > 200 && false) { // jarak jauh dari kantor
                         status = "Harap melakukan absen dalam wilayah kantor";
                         alert( "Jarak anda "+calcCrow(coordKantor, coordPegawai).toFixed(2)+ " m dari kantor. "+status);
                     }
@@ -179,14 +179,15 @@ date_default_timezone_set('Asia/Makassar');
                             data: form,
 
                             success: function(data){
-                                // alert(data); //Unterminated String literal fixed
+                                // console.log(JSON.parse(data)); //Unterminated String literal fixed
+                                // console.log(data); //Unterminated String literal fixed
                                 location.href = "<?php echo base_url('Presensi/sukses'); ?>"
                             }
                         });
                     }
                     //alert( "Jarak anda "+calcCrow(Kantor, Pegawai).toFixed(2)+ " m kantor. "+status);
 
-                    console.log(form)  
+                    console.log(form)
                 },error=>{                      // jika error
                     console.log(error.code)
                 })

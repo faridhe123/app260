@@ -34,13 +34,18 @@ class Presensi_model extends CI_model {
 
 	function getPresensi($username) {
 		$sql="
-			select min(date_record::timestamp),max(date_record::timestamp)
-			from presensi.log_presensi 
+			 select 
+				MIN(CAST(date_record as DATETIME)) AS min,
+				MAX(CAST(date_record as DATETIME)) AS max,
+				CURDATE(),date_record,CAST(date_record as DATE)
+			from log_presensi 
 			where username = '$username'
-				and date_record::date = current_date::date
+				and CAST(date_record as DATE) = CURDATE()
 			";
 		$query = $this->db->query($sql);
 		$data = $query->result_array();
+
+//		echo print_r($data);
 		
 		if($data[0]['min'] == $data[0]['max']) $data[0]['max'] == null;
 
@@ -116,8 +121,8 @@ class Presensi_model extends CI_model {
 
 		$sql="
 			-- max ID
-			select max(id::int)
-			from presensi.log_presensi a
+			select max(CAST(id AS DECIMAL)) AS max
+			from log_presensi a
 			";
 		$query = $this->db->query($sql);
 		$data = $query->result_array();
@@ -148,7 +153,7 @@ class Presensi_model extends CI_model {
 		// $id_akun = $this->session->userdata('id_akun');
 		// $this->db->where('id_akun', $id_akun);
 		
-		$insert = $this->db->insert('presensi.log_presensi', $input);
+		$insert = $this->db->insert('log_presensi', $input);
 		
 		return $insert;
 	}

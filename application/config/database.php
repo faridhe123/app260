@@ -75,6 +75,30 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'      => 'pgsql:host=
+153.92.13.113;port=3306;dbname=u999321655_app260;user=u999321655_app260;password=Turt2022!',
+	'hostname' => '153.92.13.113',
+	'username' => 'u999321655_app260',
+	'password' => 'Turt2022!',
+	'database' => 'u999321655_app260',
+	'dbdriver' => 'mysqli',
+	'dbprefix' => '',
+	'pconnect' => FALSE,
+	'db_debug' => (ENVIRONMENT !== 'production'),
+	'cache_on' => FALSE,
+	'cachedir' => '',
+	'char_set' => 'utf8',
+	'dbcollat' => 'utf8_general_ci',
+	'swap_pre' => '',
+	'encrypt' => FALSE,
+	'compress' => FALSE,
+	'stricton' => FALSE,
+	'failover' => array(),
+	'save_queries' => TRUE,
+	'options' => array(PDO::ATTR_TIMEOUT => 200)
+);
+
+$db['defaultY'] = array(
+	'dsn'      => 'pgsql:host=
 ec2-54-236-234-167.compute-1.amazonaws.com;port=5432;dbname=d5aivbejmunl1e;user=vyjzgduytfxgyb;password=c40fcadc5e31cfa91916dfbe98ccff658fd12a3ffa2f1dbdc3b4e96435e8a0f7',
 	'hostname' => 'ec2-54-236-234-167.compute-1.amazonaws.com', 
 	'username' => 'vyjzgduytfxgyb',

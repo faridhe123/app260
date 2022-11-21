@@ -85,8 +85,6 @@ class Presensi extends MY_Login {
 			redirect('404');
 		}
 
-		
-
 		$data = array();
 		$data['long'] = $_POST["long"];
 		$data['lat'] = $_POST["lat"];
@@ -99,17 +97,17 @@ class Presensi extends MY_Login {
 		$data['screen_width'] = $_POST["screen_width"];
 		$data['pixel_depth'] = $_POST["pixel_depth"];
 
-		
+
 		$data['nextID'] = ($this->Presensi_model->getMaxID()??0) + 1;
-		
-		// echo json_encode($data);die();
+
 		$presensi = $this->Presensi_model->getPresensi($data['username']);
-		
+
+//		echo json_encode($presensi);die();
 		if($presensi['min'] !== null) $jenis =  'PULANG';
 		else $jenis = 'MASUK';
-		
+
 		$submit = $this->Presensi_model->submitPresensi($data,$jenis);
-		
+
 		if($submit) echo "Presensi $jenis Sukses";
 		else echo "gagal";
 	}

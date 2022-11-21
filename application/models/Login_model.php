@@ -17,7 +17,7 @@ class Login_model extends CI_model {
 		}
 
 		$this->db->where($where);
-		$query = $this->db->get('data.v_join_asn_nonasn');
+		$query = $this->db->get('v_join_asn_nonasn');
 		
 		$hasil = $query->result_array();
 		$count = count($hasil);

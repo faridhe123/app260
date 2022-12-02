@@ -59,7 +59,7 @@ class Presensi_model extends CI_model {
 			select * 
 			from presensi.v_rekap_presensi ";
 		if($bulan !== null) $sql .= " where extract('month' from date_record::date) = '".$bulan."'";
-		else $sql .= " where date_record::date between '".$date1."' and '".$date2."'";
+		else $sql .= " where date_record::date between ".$date1." and ".$date2."";
 
 		return $this->db->query($sql)->result_array();
 		

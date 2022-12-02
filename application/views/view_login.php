@@ -33,7 +33,7 @@
                 <img style='width:130px' src="<?php echo base_url() ?>/assets/template/images/logo.png" alt="logo">
 				<!-- <span style='font-size:30px' >App<b>260</b></span> -->
               </div>
-              <h4>Selamat datang di App260 !!</h4>
+              <h4>Selamat datang di App260</h4>
               <h6 class="fw-light">Silahkan Login untuk melanjutkan</h6>
 			  	<form id='login' class="form-horizontal pt-3k" method='POST' action='<?php echo base_url('login/getlogin')?>'>                
 					<?php if(isset($_GET['redirect_to'])){?>

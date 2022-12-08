@@ -57,8 +57,8 @@ class Presensi_model extends CI_model {
 		
 		$sql="
 			select * 
-			from u999321655_app260.v_rekap_presensi ";
-		if($bulan !== null) $sql .= " where extract('month' from date_record::date = '".$bulan."'";
+			from presensi.v_rekap_presensi ";
+		if($bulan !== null) $sql .= " where extract('month' from date_record::date) = '".$bulan."'";
 		else $sql .= " where date_record between ".$date1." and ".$date2."";
 
 		return $this->db->query($sql)->result_array();
@@ -77,16 +77,16 @@ class Presensi_model extends CI_model {
 		$last = DateTime::createFromFormat('!m', $bulan)->format('t');
 		for($tgl = 1;$tgl <= $last;$tgl++ ){
 			$sql .= "
-					string_agg(case when a.date_record = '2021-".str_pad($bulan,2,0,STR_PAD_LEFT)."-".str_pad($tgl,2,0,STR_PAD_LEFT)."' then masuk else null end,'') masuk_".str_pad($tgl,2,0,STR_PAD_LEFT).",
-					string_agg(case when a.date_record = '2021-".str_pad($bulan,2,0,STR_PAD_LEFT)."-".str_pad($tgl,2,0,STR_PAD_LEFT)."' then pulang else null end,'') pulang_".str_pad($tgl,2,0,STR_PAD_LEFT).",
+					string_agg(case when a.date_record = '2021-".str_pad($bulan,2,0,STR_PAD_LEFT)."-".str_pad($tgl,2,0,STR_PAD_LEFT)."' then masuk::text else null end,'') masuk_".str_pad($tgl,2,0,STR_PAD_LEFT).",
+					string_agg(case when a.date_record = '2021-".str_pad($bulan,2,0,STR_PAD_LEFT)."-".str_pad($tgl,2,0,STR_PAD_LEFT)."' then pulang::text else null end,'') pulang_".str_pad($tgl,2,0,STR_PAD_LEFT).",
 				";
 			}
 		}else{
 			$tanggal = $date1;
 			while(strtotime($tanggal) <= strtotime($date2)){
 				$sql .= "
-						string_agg(case when a.date_record = '".date("Y-m-d",strtotime($tanggal))."' then masuk else null end,'') masuk_".str_pad(date("m",strtotime($tanggal)),2,0,STR_PAD_LEFT).str_pad(date("d",strtotime($tanggal)),2,0,STR_PAD_LEFT).",
-						string_agg(case when a.date_record = '".date("Y-m-d",strtotime($tanggal))."' then pulang else null end,'') pulang_".str_pad(date("m",strtotime($tanggal)),2,0,STR_PAD_LEFT).str_pad(date("d",strtotime($tanggal)),2,0,STR_PAD_LEFT).",
+						string_agg(case when a.date_record = '".date("Y-m-d",strtotime($tanggal))."' then masuk::text else null end,'') masuk_".str_pad(date("m",strtotime($tanggal)),2,0,STR_PAD_LEFT).str_pad(date("d",strtotime($tanggal)),2,0,STR_PAD_LEFT).",
+						string_agg(case when a.date_record = '".date("Y-m-d",strtotime($tanggal))."' then pulang::text else null end,'') pulang_".str_pad(date("m",strtotime($tanggal)),2,0,STR_PAD_LEFT).str_pad(date("d",strtotime($tanggal)),2,0,STR_PAD_LEFT).",
 					";
 
 				$tanggal = date('Y-m-d',strtotime($tanggal. " +1 day"));
@@ -94,11 +94,11 @@ class Presensi_model extends CI_model {
 		}
 
 		$sql .= "'end' selesai
-				from u999321655_app260.v_rekap_presensi a
-					full join akun b on a.username = b.username";
+				from presensi.v_rekap_presensi a
+					full join data.akun b on a.username = b.username";
 					
-		if($bulan !== null) $sql .= " where extract('month' from date_record) = '".$bulan."'";
-		else $sql .= " where date_record between '".$date1."' and '".$date2."'";
+		if($bulan !== null) $sql .= " where extract('month' from date_record::date) = '".$bulan."'";
+		else $sql .= " where date_record::date between '".$date1."' and '".$date2."'";
 
 		$sql .=" or a.username is null
 				group by b.username , b.nama

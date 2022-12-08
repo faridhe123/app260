@@ -58,8 +58,8 @@ class Presensi_model extends CI_model {
 		$sql="
 			select * 
 			from u999321655_app260.v_rekap_presensi ";
-		// if($bulan !== null) $sql .= " where extract('month' from date_record::date) = '".$bulan."'";
-		// else $sql .= " where date_record between ".$date1." and ".$date2."";
+		if($bulan !== null) $sql .= " where extract('month' from date_record::date) = '".$bulan."'";
+		else $sql .= " where date_record between ".$date1." and ".$date2."";
 
 		return $this->db->query($sql)->result_array();
 		
@@ -95,7 +95,7 @@ class Presensi_model extends CI_model {
 
 		$sql .= "'end' selesai
 				from presensi.v_rekap_presensi a
-					full join data.akun b on a.username = b.username";
+					full join u999321655_app260.akun b on a.username = b.username";
 					
 		if($bulan !== null) $sql .= " where extract('month' from date_record) = '".$bulan."'";
 		else $sql .= " where date_record between '".$date1."' and '".$date2."'";

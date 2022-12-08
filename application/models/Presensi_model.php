@@ -23,7 +23,7 @@ class Presensi_model extends CI_model {
 			select
 				case when a.username = b.username then 'Cocok' else c.nama||' absen '|| a.jenis_presensi ||' menggunakan UID  '||b.user_pemilik end indikasi,
 			a.*
-			from presensi.log_presensi a
+			from u999321655_app260.log_presensi a
 				left join data.v_list_uid b on a.uid  = b.uid
 				left join data.v_join_asn_nonasn c on a.username = c.username 
 			where a.username != b.username
@@ -57,7 +57,7 @@ class Presensi_model extends CI_model {
 		
 		$sql="
 			select * 
-			from presensi.v_rekap_presensi ";
+			from u999321655_app260.v_rekap_presensi ";
 		if($bulan !== null) $sql .= " where extract('month' from date_record::date) = '".$bulan."'";
 		else $sql .= " where date_record between ".$date1." and ".$date2."";
 
@@ -94,7 +94,7 @@ class Presensi_model extends CI_model {
 		}
 
 		$sql .= "'end' selesai
-				from presensi.v_rekap_presensi a
+				from u999321655_app260.v_rekap_presensi a
 					full join data.akun b on a.username = b.username";
 					
 		if($bulan !== null) $sql .= " where extract('month' from date_record::date) = '".$bulan."'";

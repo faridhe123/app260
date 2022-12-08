@@ -94,7 +94,7 @@ class Presensi_model extends CI_model {
 		}
 
 		$sql .= "'end' selesai
-				from presensi.v_rekap_presensi a
+				from u999321655_app260.v_rekap_presensi a
 					full join akun b on a.username = b.username";
 					
 		if($bulan !== null) $sql .= " where extract('month' from date_record) = '".$bulan."'";

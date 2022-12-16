@@ -52,7 +52,7 @@ class Presensi extends MY_Login {
 
 	public function admin($bulan=null){
 		header("Access-Control-Allow-Origin: *");
-		if($this->session->userdata('role') !== 'admin_turt' && $this->session->userdata('role') !== 'admin') redirect('404');
+		// if($this->session->userdata('role') !== 'admin_turt' && $this->session->userdata('role') !== 'admin') redirect('404');
 
         $data = array();
 		

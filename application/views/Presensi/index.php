@@ -167,7 +167,7 @@ date_default_timezone_set('Asia/Makassar');
                     coordPegawai = {"lat": latitude,"lng": longitude};
 
 
-                    if(calcCrow(coordKantor, coordPegawai) < 200) { // jarak jauh dari kantor
+                    if(calcCrow(coordKantor, coordPegawai) > 200) { // jarak jauh dari kantor && false}
                         status = "Harap melakukan absen dalam wilayah kantor";
                         alert( "Jarak anda "+calcCrow(coordKantor, coordPegawai).toFixed(2)+ " m dari kantor. "+status);
                     }

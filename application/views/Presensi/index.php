@@ -176,7 +176,7 @@ date_default_timezone_set('Asia/Makassar');
                         // status = "Harap melakukan absen dalam wilayah kantor";
                         // alert( "Jarak anda "+calcCrow(coordKantor, coordPegawai).toFixed(2)+ " m dari kantor. "+status);
 
-                        coba AJAX
+                        // coba AJAX
                         $.ajax({
                             type: "POST",
                             url: "<?php echo base_url('Presensi/submit'); ?>",

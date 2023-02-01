@@ -172,18 +172,22 @@ date_default_timezone_set('Asia/Makassar');
                         alert( "Jarak anda "+calcCrow(coordKantor, coordPegawai).toFixed(2)+ " m dari kantor. "+status);
                     }
                     else { // masuk area kantor
-                        // coba AJAX
-                        $.ajax({
-                            type: "POST",
-                            url: "<?php  echo base_url('Presensi/submit'); ?>",
-                            data: form,
 
-                            success: function(data){
-                                // console.log(JSON.parse(data)); //Unterminated String literal fixed
-                                // console.log(data); //Unterminated String literal fixed
-                                location.href = "<?php echo base_url('Presensi/sukses'); ?>"
-                            }
-                        });
+                        status = "Harap melakukan absen dalam wilayah kantor";
+                        alert( "Jarak anda "+calcCrow(coordKantor, coordPegawai).toFixed(2)+ " m dari kantor. "+status);
+                        
+                        // coba AJAX
+                        // $.ajax({
+                        //     type: "POST",
+                        //     url: "<?php  // echo base_url('Presensi/submit'); ?>",
+                        //     data: form,
+
+                        //     success: function(data){
+                        //         // console.log(JSON.parse(data)); //Unterminated String literal fixed
+                        //         // console.log(data); //Unterminated String literal fixed
+                        //         location.href = "<?php // echo base_url('Presensi/sukses'); ?>"
+                        //     }
+                        // });
                     }
                     //alert( "Jarak anda "+calcCrow(Kantor, Pegawai).toFixed(2)+ " m kantor. "+status);
 

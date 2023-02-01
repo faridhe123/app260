@@ -167,7 +167,7 @@ date_default_timezone_set('Asia/Makassar');
                     coordPegawai = {"lat": latitude,"lng": longitude};
 
 
-                    if(calcCrow(coordKantor, coordPegawai) < 200) { // jarak jauh dari kantor
+                    if(calcCrow(coordKantor, coordPegawai) > 200) { // jarak jauh dari kantor
                         status = "Harap melakukan absen dalam wilayah kantor";
                         alert( "Jarak anda "+calcCrow(coordKantor, coordPegawai).toFixed(2)+ " m dari kantor. "+status);
                     }
@@ -179,7 +179,7 @@ date_default_timezone_set('Asia/Makassar');
                         coba AJAX
                         $.ajax({
                             type: "POST",
-                            url: "<?php   echo base_url('Presensi/submit'); ?>",
+                            url: "<?php echo base_url('Presensi/submit'); ?>",
                             data: form,
 
                             success: function(data){

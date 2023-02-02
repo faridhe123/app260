@@ -53,12 +53,12 @@ class Presensi_model extends CI_model {
 		
 	}
 
-	function getPresensiAdmin($date1,$date2,$bulan=null) {
+	function getPresensiAdmin($date1, $date2, $bulan=null) {
 		
 		$sql="
 			select * 
 			from u999321655_app260.v_rekap_presensi ";
-		if($bulan !== null) $sql .= " where extract('month' from date_record::date) = '".$bulan."'";
+		if($bulan !== null) $sql .= " where extract('month' from date_record) = '".$bulan."'";
 		else $sql .= " where date_record between ".$date1." and ".$date2."";
 
 		return $this->db->query($sql)->result_array();

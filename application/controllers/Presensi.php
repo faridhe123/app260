@@ -51,13 +51,13 @@ class Presensi extends MY_Login {
 	}
 
 	public function admin($bulan=null){
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		// if($this->session->userdata('role') !== 'admin_turt' && $this->session->userdata('role') !== 'admin') redirect('404');
 
         $data = array();
 		
-		$data['dari'] = $_POST['dari'];  // ?? date("Y-m-d");
-		$data['sampai'] = $_POST['sampai']; // ?? date("Y-m-d");
+		$data['dari'] = $_POST['dari'] ?? date("Y-m-d");
+		$data['sampai'] = $_POST['sampai'] ?? date("Y-m-d");
 
 		$data['hasil'] = $this->Presensi_model->getPresensiAdmin($data['dari'], $data['sampai'], $bulan);
 		

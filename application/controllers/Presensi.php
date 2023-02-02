@@ -56,8 +56,8 @@ class Presensi extends MY_Login {
 
         $data = array();
 		
-		$data['dari'] = $_POST['dari'] ?? date("Y-m-d");
-		$data['sampai'] = $_POST['sampai'] ?? date("Y-m-d");
+		$data['dari'] = $_POST['dari'];  // ?? date("Y-m-d");
+		$data['sampai'] = $_POST['sampai']; // ?? date("Y-m-d");
 
 		$data['hasil'] = $this->Presensi_model->getPresensiAdmin($data['dari'], $data['sampai'], $bulan);
 		

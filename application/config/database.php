@@ -75,8 +75,8 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'      => 'pgsql:host=
-153.92.13.113;port=3306;dbname=u999321655_app260;user=u999321655_app260;password=Turt2022!',
-	'hostname' => '153.92.13.113',
+153.92.13.204;port=3306;dbname=u999321655_app260;user=u999321655_app260;password=Turt2022!',
+	'hostname' => '153.92.13.204',
 	'username' => 'u999321655_app260',
 	'password' => 'Turt2022!',
 	'database' => 'u999321655_app260',
